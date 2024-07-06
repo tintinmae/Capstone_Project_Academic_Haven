@@ -55,6 +55,8 @@ const Login: React.FC = () => {
       console.log("Email:", email);
       console.log("Password:", password);
     }
+
+    router.push("/dashboard");
   };
 
   const handleForgotPassword = () => {
