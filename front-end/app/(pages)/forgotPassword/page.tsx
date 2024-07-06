@@ -1,34 +1,30 @@
 "use client";
 import React, { useState } from "react";
+import "/styles/login.css";
 import Image from "next/image";
 import Input from "@/app/components/Input/Input";
 import Button from "@/app/components/buttons/Button";
-import "/styles/login.css";
+import Modal from "@/app/components/modals/Modal";
+import CodeInput from "@/app/components/codeInputs/CodeInput";
 import { useRouter } from "next/navigation";
 
-const Login: React.FC = () => {
+const ForgotPassword = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
     {}
   );
+  const [openModal, setOpenModal] = useState(false);
 
   const validateEmail = (email: string) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(email);
   };
 
-  const validatePassword = (password: string) => {
-    return password.length >= 8;
-  };
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "email") {
       setEmail(value);
-    } else if (name === "password") {
-      setPassword(value);
     }
   };
 
@@ -42,23 +38,26 @@ const Login: React.FC = () => {
       validationErrors.email = "Invalid email address";
     }
 
-    if (!password) {
-      validationErrors.password = "Password is required";
-    } else if (!validatePassword(password)) {
-      validationErrors.password = "Password must be at least 6 characters long";
-    }
-
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
       // Handle form submission logic here
       console.log("Email:", email);
-      console.log("Password:", password);
+      setOpenModal(true);
     }
   };
 
-  const handleForgotPassword = () => {
-    router.push("/forgotPassword");
+  const handleOpenModal = () => {
+    setOpenModal(!openModal);
+  };
+
+  const closeModal = () => {
+    setOpenModal(false);
+  };
+
+  const handleCodeSubmit = () => {
+    // code validation logic here
+    router.push("/resetPassword");
   };
 
   return (
@@ -74,52 +73,42 @@ const Login: React.FC = () => {
           />
         </div>
         <div className="form-container p-6 w-screen rounded-t-xl h-full flex flex-col items-center gap-6 lg:rounded-lg lg:shadow-4xl">
-          <h1 className="text-md font-bold lg:text-2xl">Login</h1>
+          <h1 className="text-md font-bold lg:text-2xl">Forgotten Password</h1>
+
           <form onSubmit={handleSubmit} className="w-full">
+            <div className="p-2">
+              <p className="text-xs">
+                Please enter your email to reset your password
+              </p>
+            </div>
             <div>
               <Input
                 type="email"
                 name="email"
                 value={email}
-                placeholder="Enter your email"
+                placeholder="Email"
                 onChange={handleInputChange}
                 error={errors.email}
               />
             </div>
-            <div>
-              <Input
-                type="password"
-                name="password"
-                value={password}
-                placeholder="Enter your password"
-                onChange={handleInputChange}
-                error={errors.password}
-              />
-            </div>
             <Button title="Submit" />
-            <a
-              href="#"
-              className="text-xs text-blue-800 mb-4 hover:text-blue-700"
-              onClick={handleForgotPassword}
-            >
-              Forgotten Password?
-            </a>
           </form>
-
-          <div className="mb-8 lg:w-full">
-            <hr className="mb-2" />
-            <p className="text-xs text-center">
-              If you don`t have an account yet, please{" "}
-              <a href="#" id="#" className="text-blue-400 hover:opacity-50">
-                request one
-              </a>
-              .
-            </p>
-          </div>
         </div>
       </div>
+
+      <Modal onClose={closeModal} show={openModal}>
+        <div className="flex flex-col items-center gap-6">
+          <p className="text-xs text-center">
+            Please enter the 4-digit code sent to{" "}
+            <span className="underline">{email}</span>
+          </p>
+          <div>
+            <CodeInput onComplete={handleCodeSubmit} />
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
 
-export default Login;
+export default ForgotPassword;
