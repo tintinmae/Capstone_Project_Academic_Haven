@@ -34,19 +34,21 @@ const Input: React.FC<InputProps> = ({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-        className={`p-4 text-sm border ${
+        className={`p-4 text-xs border ${
           error ? "border-red-600" : "border-gray-200"
         } rounded-md bg-gray-100 w-full`}
       />
-      {type === "password" && (
-        <span
-          onClick={togglePasswordVisibility}
-          className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400"
-        >
-          <FontAwesomeIcon icon={isPasswordVisible ? faEyeSlash : faEye} />
-        </span>
-      )}
-      {error && <p className="text-red-600 text-sm mt-1">{error}</p>}
+      <div>
+        {type === "password" && (
+          <span
+            onClick={togglePasswordVisibility}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400"
+          >
+            <FontAwesomeIcon icon={isPasswordVisible ? faEyeSlash : faEye} />
+          </span>
+        )}
+      </div>
+      <div>{error && <p className="text-red-600 text-xs mt-1">{error}</p>}</div>
     </div>
   );
 };
