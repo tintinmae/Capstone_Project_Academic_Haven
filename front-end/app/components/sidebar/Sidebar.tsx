@@ -38,16 +38,16 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row px-2">
+    <div className="flex flex-col md:flex-row px-2 z-50">
       <div
-        className={`fixed top-0 left-0 h-full bg-blue-950 transition-transform transform w-64 z-10 hidden md:block`}
+        className={`fixed top-0 left-0 h-full bg-blue-950 transition-transform transform w-56 z-10 hidden md:block`}
       >
         <div className="p-4">
           <div className="flex justify-center">
             <Image src={"/images/logo.png"} alt="logo" width={70} height={70} />
           </div>
 
-          <div className="mt-4 p-10 flex flex-col gap-10">
+          <div className="mt-4 p-2 flex flex-col gap-10 w-full">
             <div
               className={`cursor-pointer flex items-center gap-4 py-2 px-4 hover:bg-white hover:text-blue-950 hover:rounded-full ${isActive(
                 "/dashboard"
