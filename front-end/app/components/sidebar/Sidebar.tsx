@@ -39,7 +39,7 @@ const Sidebar = () => {
   const isActive = (path: string) => {
     return active === path
       ? "bg-blue-950 font-bold md:font-regular text-white md:text-blue-950 rounded-full md:bg-white"
-      : "text-white";
+      : "text-white font-regular";
   };
 
   return (
