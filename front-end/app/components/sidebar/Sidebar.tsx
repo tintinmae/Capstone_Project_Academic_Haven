@@ -1,25 +1,20 @@
 "use client";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-import React, { useState } from "react";
-import {
-  FaBars,
-  FaCalendarAlt,
-  FaFileAlt,
-  FaHome,
-  FaTimes,
-  FaUserFriends,
-} from "react-icons/fa";
-import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
+import React from "react";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { GoHome } from "react-icons/go";
+import { IoPeopleOutline } from "react-icons/io5";
+import { PiFolders } from "react-icons/pi";
 
 const Sidebar = () => {
   const router = useRouter();
   const active = usePathname();
-  const [isOpen, setIsOpen] = useState(true);
+  // const [isOpen, setIsOpen] = useState(true);
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+  // const toggleSidebar = () => {
+  //   setIsOpen(!isOpen);
+  // };
 
   const dashboardClicked = () => {
     router.push("/dashboard");
@@ -38,16 +33,14 @@ const Sidebar = () => {
 
   const isActive = (path: string) => {
     return active === path
-      ? "bg-blue-950 font-bold md:font-regular text-white md:text-blue-950 rounded-full md:bg-white"
+      ? "bg-blue-950 border-b-2 md:border-none text-white p-1 md:bg-white md:text-blue-950 md:rounded-full md:py-2"
       : "text-white font-regular";
   };
 
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row px-2">
       <div
-        className={`fixed top-0 left-0 h-full bg-blue-950 transition-transform transform ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } w-64 z-10 hidden md:block`}
+        className={`fixed top-0 left-0 h-full bg-blue-950 transition-transform transform w-64 z-10 hidden md:block`}
       >
         <div className="p-4">
           <div className="flex justify-center">
@@ -61,7 +54,7 @@ const Sidebar = () => {
               )}`}
               onClick={dashboardClicked}
             >
-              <FaHome /> Dashboard
+              <GoHome /> Dashboard
             </div>
             <div
               className={`cursor-pointer flex items-center gap-4 py-2 px-4 hover:bg-white hover:text-blue-950 hover:rounded-full ${isActive(
@@ -69,7 +62,7 @@ const Sidebar = () => {
               )}`}
               onClick={filesClicked}
             >
-              <FaFileAlt /> Files
+              <PiFolders /> Files
             </div>
             <div
               className={`cursor-pointer flex items-center gap-4 py-2 px-4 hover:bg-white hover:text-blue-950 hover:rounded-full ${isActive(
@@ -77,7 +70,7 @@ const Sidebar = () => {
               )}`}
               onClick={classesClicked}
             >
-              <FaUserFriends /> Classes
+              <IoPeopleOutline /> Classes
             </div>
             <div
               className={`cursor-pointer flex items-center gap-4 py-2 px-4 hover:bg-white hover:text-blue-950 hover:rounded-full ${isActive(
@@ -85,23 +78,12 @@ const Sidebar = () => {
               )}`}
               onClick={calendarClicked}
             >
-              <FaCalendarAlt /> Calendar
+              <FaRegCalendarAlt /> Calendar
             </div>
           </div>
         </div>
       </div>
-      <div className={`flex-1 ${isOpen ? "ml-64" : "ml-0"} md:ml-0`}>
-        <button
-          className="p-2 bg-white rounded-full z-20 text-blue-950 md:hidden"
-          onClick={toggleSidebar}
-        >
-          {isOpen ? (
-            <IoIosArrowDropleft className="absolute top-2 bg-white" />
-          ) : (
-            <IoIosArrowDropright className="absolute top-2 left-2" />
-          )}
-        </button>
-      </div>
+
       <div className="fixed bottom-0 left-0 w-full bg-blue-950 flex justify-around p-4 md:hidden">
         <div
           className={`cursor-pointer flex flex-col items-center ${isActive(
@@ -109,8 +91,8 @@ const Sidebar = () => {
           )}`}
           onClick={dashboardClicked}
         >
-          <FaHome size={24} />
-          <span>Dashboard</span>
+          <GoHome size={16} />
+          {/* <span className="text-xs">Dashboard</span> */}
         </div>
         <div
           className={`cursor-pointer flex flex-col items-center ${isActive(
@@ -118,8 +100,8 @@ const Sidebar = () => {
           )}`}
           onClick={filesClicked}
         >
-          <FaFileAlt size={24} />
-          <span>Files</span>
+          <PiFolders size={16} />
+          {/* <span className="text-xs">Files</span> */}
         </div>
         <div
           className={`cursor-pointer flex flex-col items-center ${isActive(
@@ -127,8 +109,8 @@ const Sidebar = () => {
           )}`}
           onClick={classesClicked}
         >
-          <FaUserFriends size={24} />
-          <span>Classes</span>
+          <IoPeopleOutline size={16} />
+          {/* <span className="text-xs">Classes</span> */}
         </div>
         <div
           className={`cursor-pointer flex flex-col items-center ${isActive(
@@ -136,8 +118,8 @@ const Sidebar = () => {
           )}`}
           onClick={calendarClicked}
         >
-          <FaCalendarAlt size={24} />
-          <span>Calendar</span>
+          <FaRegCalendarAlt size={16} />
+          {/* <span className="text-xs">Calendar</span> */}
         </div>
       </div>
     </div>
