@@ -7,7 +7,7 @@ interface TimelineProps {
 
 const Timeline: React.FC<TimelineProps> = ({ items }) => {
   return (
-    <div className="container mx-auto p-4 h-full overflow-auto">
+    <div className="container mx-auto p-1 h-full overflow-auto">
       <h2 className="text-sm font-medium mb-4">Timeline</h2>
       <div className="relative wrap overflow-hidden h-full">
         {items.map((item, index) => (
