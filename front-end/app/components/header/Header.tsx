@@ -1,18 +1,33 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import { FaRegBell, FaUser } from "react-icons/fa";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const pathname = usePathname(); // Initialize useRouter
+  // Get the current path
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  // Determine the title based on the current path
+  const getTitle = () => {
+    if (pathname.includes("/dashboard")) {
+      return "Dashboard";
+    } else if (pathname.includes("/files")) {
+      return "Files";
+    } else if (pathname.includes("/classes")) {
+      return "Classes";
+    }
+    return "Calendar";
+  };
+
   return (
     <div className="fixed top-0 left-0 right-0 bg-white flex justify-between items-center w-full p-4 gap-6 shadow-md z-50">
-      <div>
+      <div className="flex items-center gap-4">
         <Image
           src={"/images/logo.png"}
           alt="logo"
@@ -20,8 +35,10 @@ const Header = () => {
           height={30}
           className="md:hidden"
         />
+        <h1 className="text-sm md:text-xl font-bold md:ml-60">{getTitle()}</h1>{" "}
+        {/* Title on the left */}
       </div>
-      <div className="flex flex-row justify-end items-center gap-4">
+      <div className="flex items-center gap-4">
         <div className="bg-blue-950 text-white p-2 rounded-full">
           <FaRegBell size={14} />
         </div>

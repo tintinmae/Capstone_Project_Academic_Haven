@@ -3,7 +3,7 @@ import CalendarComponent from "./Calendar";
 import Timeline from "./Timeline";
 
 interface TimelineItemProps {
-  class: string;
+  grade: string;
   subject: string;
   groupNumber: string;
   time: Date;
@@ -11,30 +11,30 @@ interface TimelineItemProps {
 
 const timelineItems: TimelineItemProps[] = [
   {
-    class: "Math",
+    grade: "Grade - 7",
     subject: "Algebra",
-    groupNumber: "1A",
+    groupNumber: "Sampaguita",
     time: new Date(2024, 7, 1, 10, 0),
   },
   {
-    class: "Science",
+    grade: "Grade - 7",
     subject: "Biology",
-    groupNumber: "2B",
+    groupNumber: "Rose",
     time: new Date(2024, 7, 1, 14, 0),
   },
   {
-    class: "History",
-    subject: "World War II",
-    groupNumber: "3C",
-    time: new Date(2024, 7, 2, 9, 0),
+    grade: "Grade - 7",
+    subject: "History II",
+    groupNumber: "Daisy",
+    time: new Date(2024, 7, 2, 15, 0),
   },
 ];
 
 const Widgets = () => {
   return (
-    <div className="p-2 h-full">
+    <div className="p-1 h-full">
       <CalendarComponent />
-      <div className="h-50 overflow-auto">
+      <div className="h-50 overflow-auto mt-4">
         <Timeline items={timelineItems} />
       </div>
     </div>

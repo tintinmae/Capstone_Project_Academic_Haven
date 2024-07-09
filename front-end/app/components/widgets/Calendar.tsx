@@ -10,7 +10,7 @@ const CalendarComponent = () => {
       mode="single"
       selected={date}
       onSelect={setDate}
-      className="border text-xs"
+      className="border rounded-xl shadow text-xs"
     />
   );
 };

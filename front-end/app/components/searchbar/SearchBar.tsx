@@ -1,37 +1,23 @@
-// SearchBar.tsx
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { FaSearch } from "react-icons/fa";
 
 interface SearchBarProps {
-  onSearch: (query: string) => void; // Callback function to handle search
+  searchTerm: string;
+  onSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSearch(searchQuery); // Call the parent component's onSearch function
-  };
-
+const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearch }) => {
   return (
-    <form onSubmit={handleSubmit} className="flex items-center">
+    <div className="mb-4 w-64">
       <input
         type="text"
-        placeholder="Search..."
-        value={searchQuery}
-        onChange={handleChange}
-        className="border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:border-blue-500"
+        placeholder="Search files..."
+        value={searchTerm}
+        onChange={onSearch}
+        className="p-2 border border-gray-300 rounded w-full"
       />
-      <button type="submit" className="ml-2">
-        <FaSearch />
-      </button>
-    </form>
+    </div>
   );
 };
 
