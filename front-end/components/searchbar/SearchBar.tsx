@@ -12,7 +12,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearch }) => {
     <div className="mb-4 w-64">
       <input
         type="text"
-        placeholder="Search files..."
+        placeholder="Search..."
         value={searchTerm}
         onChange={onSearch}
         className="p-2 border border-gray-300 rounded w-full"

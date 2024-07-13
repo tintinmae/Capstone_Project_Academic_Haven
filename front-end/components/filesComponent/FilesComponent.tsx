@@ -3,6 +3,15 @@ import React, { useState } from "react";
 import { FaFileAlt, FaFilePdf, FaFileWord, FaFileExcel } from "react-icons/fa";
 import SearchBar from "../searchbar/SearchBar";
 import { format } from "date-fns";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "../ui/pagination";
 
 interface FileComponentProps {
   name: string;
@@ -42,9 +51,39 @@ const FilesComponent: React.FC = () => {
       date: new Date(2024, 7, 2, 15, 0),
       uploadedBy: "Bob Brown",
     },
+    {
+      name: "Document1.pdf",
+      type: "pdf",
+      size: "1.2MB",
+      date: new Date(2024, 7, 2, 15, 0),
+      uploadedBy: "John Doe",
+    },
+    {
+      name: "Report.docx",
+      type: "word",
+      size: "600KB",
+      date: new Date(2024, 7, 2, 15, 0),
+      uploadedBy: "Jane Smith",
+    },
+    {
+      name: "Spreadsheet.xlsx",
+      type: "excel",
+      size: "2.5MB",
+      date: new Date(2024, 7, 2, 15, 0),
+      uploadedBy: "Alice Johnson",
+    },
+    // {
+    //   name: "Notes.txt",
+    //   type: "text",
+    //   size: "300KB",
+    //   date: new Date(2024, 7, 2, 15, 0),
+    //   uploadedBy: "Bob Brown",
+    // },
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -54,6 +93,15 @@ const FilesComponent: React.FC = () => {
     file.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const totalPages = Math.ceil(filteredFiles.length / itemsPerPage);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const paginatedFiles = filteredFiles.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   const getFileIcon = (type: string) => {
     switch (type) {
       case "pdf":
@@ -68,14 +116,13 @@ const FilesComponent: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
-      <div className="px-4">
+    <div className="px-4 grid grid-rows-2">
+      <div className="fixed top-14 bg-white w-full px-4 py-6 h-20">
         <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
       </div>
-      <hr className="mb-4 opacity-70" />
-      <div className="bg-white shadow rounded-lg p-4 w-full border">
+      <div className="bg-white rounded-lg p-4 w-full mt-20 lg:fixed lg:w-3/5 lg:ml-14">
         <ul>
-          {filteredFiles.map((file, index) => (
+          {paginatedFiles.map((file, index) => (
             <li
               key={index}
               className="flex items-center gap-4 p-2 border-b border-dashed"
@@ -98,6 +145,49 @@ const FilesComponent: React.FC = () => {
             </li>
           ))}
         </ul>
+      </div>
+      <div className="hidden lg:block mt-4 fixed bottom-10">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentPage > 1) handlePageChange(currentPage - 1);
+                }}
+              />
+            </PaginationItem>
+
+            {[...Array(totalPages)].map((_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink
+                  href="#"
+                  isActive={index + 1 === currentPage}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handlePageChange(index + 1);
+                  }}
+                >
+                  {" "}
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+
+            {totalPages > 3 && <PaginationEllipsis />}
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentPage < totalPages)
+                    handlePageChange(currentPage + 1);
+                }}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   );
