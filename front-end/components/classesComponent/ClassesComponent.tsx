@@ -42,6 +42,7 @@ const ClassesComponent = () => {
         <div>
           <CardClass />
         </div>
+
         <div className="mt-60">
           <CardClass />
         </div>
