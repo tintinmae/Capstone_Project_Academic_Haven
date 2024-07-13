@@ -6,9 +6,7 @@ import React from "react";
 const Files: React.FC = () => {
   return (
     <Layout>
-      <div>
-        <FilesComponent />
-      </div>
+      <FilesComponent />
     </Layout>
   );
 };
