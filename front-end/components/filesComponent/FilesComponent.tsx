@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { FaFileAlt, FaFilePdf, FaFileWord, FaFileExcel } from "react-icons/fa";
-import SearchBar from "../../app/components/searchbar/SearchBar";
+import SearchBar from "../searchbar/SearchBar";
 import { format } from "date-fns";
 
 interface FileComponentProps {

@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import Input from "@/app/components/Input/Input";
-import Button from "@/app/components/buttons/Button";
+import Input from "@/components/Input/Input";
+import Button from "@/components/Buttons/Button";
 import "/styles/login.css";
 import { useRouter } from "next/navigation";
 
