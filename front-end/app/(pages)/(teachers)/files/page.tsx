@@ -1,6 +1,6 @@
 "use client";
 import FilesComponent from "@/components/filesComponent/FilesComponent";
-import Layout from "@/app/components/layout/Layout";
+import Layout from "@/components/layout/Layout";
 import React from "react";
 
 const Files: React.FC = () => {

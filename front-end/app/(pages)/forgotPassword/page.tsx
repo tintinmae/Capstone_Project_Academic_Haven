@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import "/styles/login.css";
 import Image from "next/image";
-import Input from "@/app/components/Input/Input";
-import Button from "@/app/components/buttons/Button";
-import Modal from "@/app/components/modals/Modal";
-import CodeInput from "@/app/components/codeInputs/CodeInput";
+import Input from "@/components/Input/Input";
+import Button from "@/components/Buttons/Button";
+import Modal from "@/components/modals/Modal";
+import CodeInput from "@/components/codeInputs/CodeInput";
 import { useRouter } from "next/navigation";
 
 const ForgotPassword = () => {
