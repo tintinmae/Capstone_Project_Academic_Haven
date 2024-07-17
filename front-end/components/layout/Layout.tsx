@@ -20,11 +20,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Header />
       <div className="flex flex-1 mt-16">
         <Sidebar />
-        <div className="flex-1 p-4 md:ml-56 text-sm md:text-md z-10 pb-20 md:pb-0 items-center">
+        <div className="flex-1 p-4 md:ml-56 text-sm md:text-md pb-20 md:pb-0 items-center">
           {children}
         </div>
         {isNotCalendarPage && (
-          <div className="hidden md:block shadow-lg p-4 w-80 z-30">
+          <div className="hidden md:block shadow-lg p-4 w-80">
             <Widgets />
           </div>
         )}
