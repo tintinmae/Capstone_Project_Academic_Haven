@@ -26,7 +26,7 @@ const Header = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 bg-white flex justify-between items-center w-full p-4 gap-6 shadow-md z-50">
+    <div className="fixed top-0 left-0 right-0 bg-white flex justify-between items-center w-full p-4 gap-6 shadow-md ">
       <div className="flex items-center gap-4">
         <Image
           src={"/images/logo.png"}

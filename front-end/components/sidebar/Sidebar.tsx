@@ -38,9 +38,9 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row px-2 z-50">
+    <div className="flex flex-col md:flex-row px-2 z-20">
       <div
-        className={`fixed top-0 left-0 h-full bg-blue-950 transition-transform transform w-56 z-10 hidden md:block`}
+        className={`fixed top-0 left-0 h-full bg-blue-950 transition-transform transform w-56 z-0 hidden md:block`}
       >
         <div className="p-4">
           <div className="flex justify-center">
