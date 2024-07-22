@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaGreaterThan } from "react-icons/fa";
 import { ArrowBigRight, ArrowDownRight, ArrowRight } from "lucide-react";
 import { GoArrowRight } from "react-icons/go";
 import { useRouter } from "next/navigation";
@@ -19,14 +19,14 @@ interface ClassCardProps {
   students: StudentProps[];
 }
 
-const getRandomColor = () => {
-  const letters = "0123456789ABCDEF";
-  let color = "#";
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-};
+// const getRandomColor = () => {
+//   const letters = "0123456789ABCDEF";
+//   let color = "#";
+//   for (let i = 0; i < 6; i++) {
+//     color += letters[Math.floor(Math.random() * 8)];
+//   }
+//   return color;
+// };
 const ClassCard: React.FC<ClassCardProps> = ({
   grade,
   section,
@@ -45,8 +45,18 @@ const ClassCard: React.FC<ClassCardProps> = ({
 
   return (
     <div
-      className="background w-[300px] rounded-xl shadow-lg"
-      style={{ backgroundColor: getRandomColor() }}
+      className={`${
+        grade === 7
+          ? "bg-green-800"
+          : grade === 8
+          ? "bg-yellow-600"
+          : grade === 9
+          ? "bg-red-700"
+          : grade === 10
+          ? "bg-blue-950"
+          : "bg-muted-foreground"
+      } w-[300px] rounded-xl shadow-lg`}
+      // style={{ backgroundColor: getRandomColor() }}
     >
       <div className="p-4 text-white">
         <h2>
@@ -76,7 +86,7 @@ const ClassCard: React.FC<ClassCardProps> = ({
         </div>
         <div className="text-xs text-blue-400 px-2 hover:text-blue-300">
           <a href="#" onClick={handleRoute}>
-            View Class{" "}
+            View
           </a>
         </div>
       </div>

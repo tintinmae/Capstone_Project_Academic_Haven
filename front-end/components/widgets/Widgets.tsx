@@ -32,7 +32,7 @@ const timelineItems: TimelineItemProps[] = [
 
 const Widgets = () => {
   return (
-    <div className="p-1 h-full">
+    <div className="p-1 h-full z-0">
       <CalendarComponent />
       <div className="h-50 overflow-auto mt-4">
         <Timeline items={timelineItems} />

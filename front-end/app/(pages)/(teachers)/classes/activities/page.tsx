@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
-import { useStudentContext } from "@/utils/types/context/StudentContext"; // Adjust the import path as needed
+"use client";
+import React, { useState } from "react";
+
 import Layout from "@/components/layout/Layout";
 import {
   Breadcrumb,
@@ -10,20 +11,24 @@ import {
 } from "@/components/ui/breadcrumb";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
+import { StudentProps } from "@/utils/types/type";
+import { useStudentContext } from "@/app/StudentContext";
+import Students from "@/components/studentsList/Students";
+import ActivitiesComponent from "@/components/activities/ActivitiesComponent";
 
-// Define the Activities component
 const Activities: React.FC = () => {
   const { students } = useStudentContext();
-
   return (
     <Layout>
       <div>
-        <div className="self-start">
+        <div className="self-start mb-4 mt-6 md:mt-0">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink href="/classes">Classes</BreadcrumbLink>
-                <BreadcrumbSeparator />
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
                 <BreadcrumbLink href="/classes/activities">
                   Activities
                 </BreadcrumbLink>
@@ -31,27 +36,11 @@ const Activities: React.FC = () => {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <div>
-          <h3 className="text-xl font-bold mt-4">Students</h3>
-          <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4 mt-2">
-            <ul>
-              {students.map((student) => (
-                <li key={student.email} className="flex items-center mb-4">
-                  <Image
-                    src={student.profilePicture}
-                    alt={`${student.name}'s profile`}
-                    width={40}
-                    height={40}
-                    className="rounded-full mr-4"
-                  />
-                  <div>
-                    <p className="text-sm font-medium">{student.name}</p>
-                    <p className="text-xs text-gray-500">{student.email}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </ScrollArea>
+        <div className="flex flex-row justify-between">
+          <ActivitiesComponent />
+          <div className="absolute top-16 right-4 mt-2">
+            <Students />
+          </div>
         </div>
       </div>
     </Layout>
