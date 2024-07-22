@@ -10,17 +10,16 @@ import {
 } from "../ui/breadcrumb";
 import Buttons from "../Buttons/Button";
 import Modal from "../modals/Modal";
-import { useStudentContext } from "@/utils/types/context/StudentContext";
+import { useStudentContext } from "@/app/StudentContext";
 
 const ClassesComponent: React.FC = () => {
-  const { students } = useStudentContext();
   const [isOpen, setIsOpen] = useState(false);
   const [grade, setGrade] = useState<number | undefined>();
   const [section, setSection] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [isOpenInvitation, setIsOpenInvitation] = useState(false);
 
+  const { students } = useStudentContext();
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -41,19 +40,6 @@ const ClassesComponent: React.FC = () => {
     setIsOpen(false);
   };
 
-  const handleInvitation = () => {
-    setIsOpenInvitation(!isOpenInvitation);
-  };
-
-  const closeInvitation = () => {
-    setIsOpenInvitation(false);
-  };
-
-  const handleInviteStudents = (e: React.MouseEvent) => {
-    e.preventDefault();
-    handleInvitation();
-  };
-
   return (
     <div className="flex flex-col items-center">
       <div className="self-start">
@@ -61,11 +47,13 @@ const ClassesComponent: React.FC = () => {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="/classes">Classes</BreadcrumbLink>
-              <BreadcrumbSeparator />
+            </BreadcrumbItem>
+            {/* <BreadcrumbSeparator />
+            <BreadcrumbItem>
               <BreadcrumbLink href="/classes/activities">
                 Activities
               </BreadcrumbLink>
-            </BreadcrumbItem>
+            </BreadcrumbItem> */}
           </BreadcrumbList>
         </Breadcrumb>
       </div>
@@ -84,16 +72,40 @@ const ClassesComponent: React.FC = () => {
         </div>
         <div>
           <ClassCard
-            grade={7}
-            section="Rose"
+            grade={8}
+            section="Narra"
             classPhoto="/images/1715585581973 1.png"
             students={students}
           />
         </div>
         <div>
           <ClassCard
-            grade={7}
-            section="Rose"
+            grade={9}
+            section="Pearl"
+            classPhoto="/images/1715585581973 1.png"
+            students={students}
+          />
+        </div>
+        <div>
+          <ClassCard
+            grade={10}
+            section="Lapu-Lapu"
+            classPhoto="/images/1715585581973 1.png"
+            students={students}
+          />
+        </div>
+        <div>
+          <ClassCard
+            grade={11}
+            section="ABM - A"
+            classPhoto="/images/1715585581973 1.png"
+            students={students}
+          />
+        </div>
+        <div>
+          <ClassCard
+            grade={12}
+            section="ABM - A"
             classPhoto="/images/1715585581973 1.png"
             students={students}
           />
@@ -102,7 +114,7 @@ const ClassesComponent: React.FC = () => {
       <Modal show={isOpen} onClose={closeModal}>
         <div className="flex flex-col">
           <h1 className="text-center mb-6 text-xl">Add Class</h1>
-          <form action="#" className="flex flex-col gap-6">
+          <form action="#" className="flex flex-col gap-6 mb-6">
             <div className="flex flex-col gap-2">
               <label htmlFor="grade" className="text-gray-400">
                 Grade
@@ -149,32 +161,8 @@ const ClassesComponent: React.FC = () => {
                 />
               )}
             </div>
-            <div className="mb-6">
-              <a
-                href="#"
-                className="text-blue-400 hover:text-blue-300"
-                onClick={handleInviteStudents}
-              >
-                Invite Students
-              </a>
-            </div>
           </form>
           <Buttons title="Submit" onClick={closeModal} />
-        </div>
-      </Modal>
-
-      <Modal show={isOpenInvitation} onClose={closeInvitation}>
-        <div className="flex flex-col gap-6">
-          <form action="#" className="flex flex-col gap-2">
-            <label htmlFor="email">Students Email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              className="border p-4 text-xs rounded-lg bg-gray-50"
-            />
-          </form>
-          <Buttons title="Send Invite" onClick={closeInvitation} />
         </div>
       </Modal>
     </div>

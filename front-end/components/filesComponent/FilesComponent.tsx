@@ -117,7 +117,7 @@ const FilesComponent: React.FC = () => {
 
   return (
     <div className="px-4 grid grid-rows-2">
-      <div className="fixed top-14 bg-white w-full px-4 py-6 h-20">
+      <div className="fixed top-14 w-full px-4 py-6 h-20 z-0">
         <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
       </div>
       <div className="bg-white rounded-lg p-4 w-full mt-20 lg:fixed lg:w-3/5 lg:ml-14">

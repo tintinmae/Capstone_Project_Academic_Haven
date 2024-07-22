@@ -16,11 +16,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     pathname === "/files" ||
     pathname === "/classes";
   return (
-    <div className="flex flex-col h-screen w-full overflow-auto">
+    <div className="bg-white flex flex-col h-screen w-full overflow-auto">
       <Header />
       <div className="flex flex-1 mt-16">
         <Sidebar />
-        <div className="flex-1 p-4 md:ml-56 text-sm md:text-md pb-20 md:pb-0 items-center">
+        <div className="bg-white flex-1 p-4 mr-3 md:mr-0 md:ml-56 text-sm md:text-md pb-20 md:pb-0 items-center">
           {children}
         </div>
         {isNotCalendarPage && (
