@@ -38,7 +38,7 @@ const TasksComponent: React.FC = () => {
   const [taskTitle, setTaskTitle] = useState<string>("");
   const [taskDescription, setTaskDescription] = useState<string>("");
   const [editMode, setEditMode] = useState<boolean>(false);
-  const [deleteModal, setDeleteModal] = useState<boolean>(false); // Corrected state initialization
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
 
   const [calendarHeight, setCalendarHeight] = useState<number>(500);
@@ -178,7 +178,7 @@ const TasksComponent: React.FC = () => {
 
         <div>
           <button
-            className="bg-green-700 text-white text-xs p-2 w-32 rounded-md hover:bg-green-900"
+            className="bg-blue-950 text-white text-xs p-2 w-32 rounded-md hover:bg-blue-950/50"
             onClick={handleOpenModal}
           >
             Add Task
@@ -189,11 +189,17 @@ const TasksComponent: React.FC = () => {
       <div className="flex flex-col">
         <Tabs defaultValue="list-view" className="w-full h-full">
           <TabsList>
-            <TabsTrigger value="list-view" className="flex gap-2">
+            <TabsTrigger
+              value="list-view"
+              className="flex gap-2 hover:bg-gray-300"
+            >
               <List size={14} />
-              <span className="hidden md:block">List View</span>
+              <span className="hidden md:block ">List View</span>
             </TabsTrigger>
-            <TabsTrigger value="calendar-view" className="flex gap-2">
+            <TabsTrigger
+              value="calendar-view"
+              className="flex hover:bg-gray-300 gap-2"
+            >
               <CalendarDays size={14} />
               <span className="hidden md:block">Calendar View</span>
             </TabsTrigger>
