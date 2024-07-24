@@ -2,9 +2,10 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface StudentProps {
+  id?: number;
   name: string;
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
   profilePicture: string;
 }
 
@@ -26,90 +27,105 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
 }) => {
   const [students, setStudents] = useState<StudentProps[]>([
     {
+      id: 1,
       name: "John Doe",
       email: "john1@example.com",
       password: "password123",
       profilePicture: "/images/student1.jpg",
     },
     {
+      id: 2,
       name: "Jane Smith",
       email: "jane1@example.com",
       password: "password123",
       profilePicture: "/images/student2.jpg",
     },
     {
+      id: 3,
       name: "Emily Johnson",
       email: "emily1@example.com",
       password: "password123",
       profilePicture: "/images/student3.jpg",
     },
     {
+      id: 4,
       name: "Michael Brown",
       email: "michael1@example.com",
       password: "password123",
       profilePicture: "/images/student4.jpg",
     },
     {
+      id: 5,
       name: "Sarah Davis",
       email: "sarah1@example.com",
       password: "password123",
       profilePicture: "/images/student3.jpg",
     },
     {
+      id: 6,
       name: "John Doe",
       email: "john2@example.com",
       password: "password123",
       profilePicture: "/images/student1.jpg",
     },
     {
+      id: 7,
       name: "Jane Smith",
       email: "jane2@example.com",
       password: "password123",
       profilePicture: "/images/student2.jpg",
     },
     {
+      id: 8,
       name: "Emily Johnson",
       email: "emily2@example.com",
       password: "password123",
       profilePicture: "/images/student3.jpg",
     },
     {
+      id: 9,
       name: "Michael Brown",
       email: "michael2@example.com",
       password: "password123",
       profilePicture: "/images/student4.jpg",
     },
     {
+      id: 10,
       name: "Sarah Davis",
       email: "sarah2@example.com",
       password: "password123",
       profilePicture: "/images/student3.jpg",
     },
     {
+      id: 12,
       name: "John Doe",
       email: "john3@example.com",
       password: "password123",
       profilePicture: "/images/student1.jpg",
     },
     {
+      id: 13,
       name: "Jane Smith",
       email: "jane3@example.com",
       password: "password123",
       profilePicture: "/images/student2.jpg",
     },
     {
+      id: 15,
       name: "Emily Johnson",
       email: "emily3@example.com",
       password: "password123",
       profilePicture: "/images/student3.jpg",
     },
     {
+      id: 16,
       name: "Michael Brown",
       email: "michael3@example.com",
       password: "password123",
       profilePicture: "/images/student4.jpg",
     },
     {
+      id: 17,
       name: "Sarah Davis",
       email: "sarah3@example.com",
       password: "password123",

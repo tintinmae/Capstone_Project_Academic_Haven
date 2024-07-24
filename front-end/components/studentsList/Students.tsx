@@ -15,12 +15,18 @@ import {
 import { FaBars } from "react-icons/fa";
 import Modal from "../modals/Modal";
 import Buttons from "../Buttons/Button";
+import { useRouter } from "next/navigation";
 
 const Students: React.FC = () => {
   const { students } = useStudentContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [emails, setEmails] = useState<string[]>([""]);
+  const router = useRouter();
+
+  const handleRoute = () => {
+    router.push("/classes/attendance");
+  };
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -71,7 +77,10 @@ const Students: React.FC = () => {
         </div>
 
         <ScrollArea className="h-[150px] md:h-[82vh] w-[350px] rounded-md border p-4 mt-2">
-          <p className="text-end text-xs underline text-blue-600 hover:text-gray-300">
+          <p
+            className="text-end text-xs underline text-blue-600 hover:text-gray-300"
+            onClick={handleRoute}
+          >
             View Attendance
           </p>
           <ul>
@@ -103,7 +112,10 @@ const Students: React.FC = () => {
               <DrawerTitle>Students</DrawerTitle>
               <DrawerDescription>
                 <ScrollArea className="h-[150px] md:h-[82vh] w-[350px] rounded-md border p-4 mt-2">
-                  <p className="text-end text-xs underline text-blue-600 hover:text-gray-300">
+                  <p
+                    className="text-end text-xs underline text-blue-600 hover:text-gray-300"
+                    onClick={handleRoute}
+                  >
                     View Attendance
                   </p>
                   <ul>
