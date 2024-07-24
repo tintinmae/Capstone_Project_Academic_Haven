@@ -84,7 +84,7 @@ const ActivitiesComponent = () => {
     <div className="mt-6 w-full md:w-[76%]">
       <div className="flex flex-row justify-between">
         <div></div>
-        <div className="w-[200px]">
+        <div className="w-[150px] md:w-[200px]">
           <Buttons
             title="Post Activities"
             icon={<GoUpload size={16} />}

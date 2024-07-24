@@ -12,7 +12,7 @@ import {
 const SelectComponent = () => {
   return (
     <Select>
-      <SelectTrigger className="w-[30%]">
+      <SelectTrigger className="w-full">
         <SelectValue placeholder="Select a type of activity" />
       </SelectTrigger>
       <SelectContent>

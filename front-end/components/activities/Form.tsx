@@ -27,7 +27,7 @@ const Form = () => {
     <div className="flex flex-col items-center">
       <form
         action=""
-        className="border p-4 rounded-lg w-[60%] flex flex-col gap-6"
+        className="border p-4 rounded-lg w-full md:w-[60%] flex flex-col gap-6"
         onSubmit={handlePost}
       >
         <SelectComponent />
