@@ -7,6 +7,7 @@ interface StudentProps {
   email?: string;
   password?: string;
   profilePicture: string;
+  grade?: number;
 }
 
 interface StudentContextProps {
@@ -32,6 +33,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "john1@example.com",
       password: "password123",
       profilePicture: "/images/student1.jpg",
+      grade: 98.5,
     },
     {
       id: 2,
@@ -39,6 +41,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "jane1@example.com",
       password: "password123",
       profilePicture: "/images/student2.jpg",
+      grade: 97.9,
     },
     {
       id: 3,
@@ -46,6 +49,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "emily1@example.com",
       password: "password123",
       profilePicture: "/images/student3.jpg",
+      grade: 96,
     },
     {
       id: 4,
@@ -53,6 +57,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "michael1@example.com",
       password: "password123",
       profilePicture: "/images/student4.jpg",
+      grade: 98,
     },
     {
       id: 5,
@@ -60,6 +65,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "sarah1@example.com",
       password: "password123",
       profilePicture: "/images/student3.jpg",
+      grade: 98,
     },
     {
       id: 6,
@@ -67,6 +73,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "john2@example.com",
       password: "password123",
       profilePicture: "/images/student1.jpg",
+      grade: 98,
     },
     {
       id: 7,
@@ -74,6 +81,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "jane2@example.com",
       password: "password123",
       profilePicture: "/images/student2.jpg",
+      grade: 98,
     },
     {
       id: 8,
@@ -81,6 +89,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "emily2@example.com",
       password: "password123",
       profilePicture: "/images/student3.jpg",
+      grade: 98,
     },
     {
       id: 9,
@@ -88,6 +97,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "michael2@example.com",
       password: "password123",
       profilePicture: "/images/student4.jpg",
+      grade: 98,
     },
     {
       id: 10,
@@ -95,6 +105,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "sarah2@example.com",
       password: "password123",
       profilePicture: "/images/student3.jpg",
+      grade: 98,
     },
     {
       id: 12,
@@ -102,6 +113,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "john3@example.com",
       password: "password123",
       profilePicture: "/images/student1.jpg",
+      grade: 98,
     },
     {
       id: 13,
@@ -109,6 +121,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "jane3@example.com",
       password: "password123",
       profilePicture: "/images/student2.jpg",
+      grade: 98,
     },
     {
       id: 15,
@@ -116,6 +129,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "emily3@example.com",
       password: "password123",
       profilePicture: "/images/student3.jpg",
+      grade: 98,
     },
     {
       id: 16,
@@ -123,6 +137,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "michael3@example.com",
       password: "password123",
       profilePicture: "/images/student4.jpg",
+      grade: 98,
     },
     {
       id: 17,
@@ -130,6 +145,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       email: "sarah3@example.com",
       password: "password123",
       profilePicture: "/images/student3.jpg",
+      grade: 98,
     },
   ]);
 
