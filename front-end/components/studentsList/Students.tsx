@@ -1,5 +1,5 @@
 "use client";
-import { useStudentContext } from "@/app/StudentContext";
+import { useStudentContext } from "@/app/contexts/StudentContext";
 import React, { useState } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 import Image from "next/image";

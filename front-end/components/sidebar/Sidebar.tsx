@@ -2,9 +2,8 @@
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import React from "react";
-import { FaRegCalendarAlt } from "react-icons/fa";
 import { GoHome } from "react-icons/go";
-import { IoPeopleOutline } from "react-icons/io5";
+import { IoCalendarClearOutline, IoPeopleOutline } from "react-icons/io5";
 import { PiFolders } from "react-icons/pi";
 
 const Sidebar = () => {
@@ -78,13 +77,13 @@ const Sidebar = () => {
               )}`}
               onClick={calendarClicked}
             >
-              <FaRegCalendarAlt /> Calendar
+              <IoCalendarClearOutline /> Calendar
             </div>
           </div>
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 w-full bg-blue-950 flex justify-around p-4 md:hidden">
+      <div className="fixed bottom-0 left-0 rounded-t-xl w-full bg-blue-950 flex justify-around p-4 md:hidden">
         <div
           className={`cursor-pointer flex flex-col items-center ${isActive(
             "/dashboard"
@@ -118,7 +117,7 @@ const Sidebar = () => {
           )}`}
           onClick={calendarClicked}
         >
-          <FaRegCalendarAlt size={16} />
+          <IoCalendarClearOutline size={16} />
           {/* <span className="text-xs">Calendar</span> */}
         </div>
       </div>

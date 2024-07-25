@@ -1,9 +1,10 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useState, useEffect } from "react";
-import { StudentProvider } from "../StudentContext";
+import { StudentProvider } from "../contexts/StudentContext";
 import { useRouter } from "next/router";
 import Loader from "@/components/loader/Loader";
+import { UserProvider } from "../contexts/UserContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -36,9 +37,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.asPath]);
 
   return (
-    <StudentProvider>
-      {loading ? <Loader /> : <Component {...pageProps} />}
-    </StudentProvider>
+    <UserProvider>
+      <StudentProvider>
+        {loading ? <Loader /> : <Component {...pageProps} />}
+      </StudentProvider>
+    </UserProvider>
   );
 }
 

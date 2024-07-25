@@ -1,5 +1,5 @@
 "use client";
-import { useStudentContext } from "@/app/StudentContext";
+import { useStudentContext } from "@/app/contexts/StudentContext";
 import React, { useState } from "react";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";

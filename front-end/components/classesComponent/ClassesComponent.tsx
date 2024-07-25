@@ -10,7 +10,7 @@ import {
 } from "../ui/breadcrumb";
 import Buttons from "../Buttons/Button";
 import Modal from "../modals/Modal";
-import { useStudentContext } from "@/app/StudentContext";
+import { useStudentContext } from "@/app/contexts/StudentContext";
 
 const ClassesComponent: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
