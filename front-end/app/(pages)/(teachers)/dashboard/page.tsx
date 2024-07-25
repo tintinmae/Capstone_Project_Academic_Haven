@@ -5,7 +5,9 @@ import DashboardComponent from "./DashboardComponent";
 const Dashboard = () => {
   return (
     <Layout>
-      <DashboardComponent />
+      <div className="container">
+        <DashboardComponent />
+      </div>
     </Layout>
   );
 };

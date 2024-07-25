@@ -1,6 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { FaFileAlt, FaFilePdf, FaFileWord, FaFileExcel } from "react-icons/fa";
+import {
+  FaFileAlt,
+  FaFilePdf,
+  FaFileWord,
+  FaFileExcel,
+  FaTrash,
+} from "react-icons/fa";
 import SearchBar from "../searchbar/SearchBar";
 import { format } from "date-fns";
 import {
@@ -12,6 +18,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../ui/pagination";
+import Modal from "../modals/Modal";
 
 interface FileComponentProps {
   name: string;
@@ -22,7 +29,7 @@ interface FileComponentProps {
 }
 
 const FilesComponent: React.FC = () => {
-  const files: FileComponentProps[] = [
+  const [files, setFiles] = useState<FileComponentProps[]>([
     {
       name: "Document1.pdf",
       type: "pdf",
@@ -72,18 +79,33 @@ const FilesComponent: React.FC = () => {
       date: new Date(2024, 7, 2, 15, 0),
       uploadedBy: "Alice Johnson",
     },
-    // {
-    //   name: "Notes.txt",
-    //   type: "text",
-    //   size: "300KB",
-    //   date: new Date(2024, 7, 2, 15, 0),
-    //   uploadedBy: "Bob Brown",
-    // },
-  ];
+  ]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedFileIndex, setSelectedFileIndex] = useState<number | null>(
+    null
+  );
+
+  const handleOpenModal = (index: number) => {
+    setSelectedFileIndex(index);
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+    setSelectedFileIndex(null);
+  };
+
+  const handleDelete = () => {
+    if (selectedFileIndex !== null) {
+      setFiles(files.filter((_, i) => i !== selectedFileIndex));
+      handleCloseModal();
+    }
+  };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -102,6 +124,7 @@ const FilesComponent: React.FC = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
   const getFileIcon = (type: string) => {
     switch (type) {
       case "pdf":
@@ -116,8 +139,8 @@ const FilesComponent: React.FC = () => {
   };
 
   return (
-    <div className="px-4 grid grid-rows-2">
-      <div className="fixed top-14 w-full px-4 py-6 h-20 z-0">
+    <div className="md:ml-10 grid grid-rows-2">
+      <div className="fixed top-14 w-full px-4 py-6 h-20 z-10">
         <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
       </div>
       <div className="bg-white rounded-lg p-4 w-full mt-20 lg:fixed lg:w-3/5 lg:ml-14">
@@ -125,8 +148,14 @@ const FilesComponent: React.FC = () => {
           {paginatedFiles.map((file, index) => (
             <li
               key={index}
-              className="flex items-center gap-4 p-2 border-b border-dashed"
+              className="relative flex items-center gap-4 p-2 border-b border-dashed group hover:bg-gray-100"
             >
+              <button
+                onClick={() => handleOpenModal(index)}
+                className="text-red-500 hover:text-red-700 border-r p-4"
+              >
+                <FaTrash />
+              </button>
               {getFileIcon(file.type)}
               <div className="flex flex-row items-center justify-between w-full py-4">
                 <div className="flex flex-col">
@@ -146,6 +175,7 @@ const FilesComponent: React.FC = () => {
           ))}
         </ul>
       </div>
+
       <div className="hidden lg:block mt-4 fixed bottom-10">
         <Pagination>
           <PaginationContent>
@@ -169,7 +199,6 @@ const FilesComponent: React.FC = () => {
                     handlePageChange(index + 1);
                   }}
                 >
-                  {" "}
                   {index + 1}
                 </PaginationLink>
               </PaginationItem>
@@ -189,6 +218,26 @@ const FilesComponent: React.FC = () => {
           </PaginationContent>
         </Pagination>
       </div>
+
+      <Modal show={isOpen} onClose={handleCloseModal}>
+        <div className="flex flex-col items-center gap-6 p-10">
+          <p className="text-lg">Are you sure you want to delete this file?</p>
+          <div className="flex gap-4">
+            <button
+              className="text-gray-700 bg-gray-200 hover:bg-gray-300 py-2 px-6 rounded-lg"
+              onClick={handleCloseModal}
+            >
+              No
+            </button>
+            <button
+              className="text-white bg-red-600 hover:bg-red-700 py-2 px-6 rounded-lg"
+              onClick={handleDelete}
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

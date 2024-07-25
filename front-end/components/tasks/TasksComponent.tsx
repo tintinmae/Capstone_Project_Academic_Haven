@@ -181,7 +181,7 @@ const TasksComponent: React.FC = () => {
             className="bg-blue-950 text-white text-xs p-2 w-32 rounded-md hover:bg-blue-950/50"
             onClick={handleOpenModal}
           >
-            Add Task
+            Add Event
           </button>
         </div>
       </div>

@@ -12,7 +12,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
 import { StudentProps } from "@/utils/types/type";
-import { useStudentContext } from "@/app/StudentContext";
+import { useStudentContext } from "@/app/contexts/StudentContext";
 import Students from "@/components/studentsList/Students";
 import ActivitiesComponent from "@/components/activities/ActivitiesComponent";
 

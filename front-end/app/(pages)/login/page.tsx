@@ -64,7 +64,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="container p-10">
+    <div className="container p-10 md:p-[9.5%]">
       <div className="flex flex-col justify-center items-center gap-6">
         <div className="mb-12">
           <Image
