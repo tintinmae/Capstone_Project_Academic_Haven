@@ -10,8 +10,10 @@ import { GoUpload } from "react-icons/go";
 import Modal from "../modals/Modal";
 import UploadActivities from "./UploadActivities";
 import { useRouter } from "next/navigation";
+import { useStudentContext } from "@/app/contexts/StudentContext";
 
 const ActivitiesComponent = () => {
+  const { students } = useStudentContext();
   const router = useRouter();
 
   const handleClick = () => {
@@ -23,18 +25,24 @@ const ActivitiesComponent = () => {
       title: "Math Homework",
       description: "Complete the exercises on page 42.",
       dueDate: "2024-07-25",
+      answered: students.length - 2,
+      notAnswered: 2,
     },
     {
       id: 2,
       title: "Science Project",
       description: "Prepare a presentation on the solar system.",
       dueDate: "2024-08-01",
+      answered: students.length - 5,
+      notAnswered: 5,
     },
     {
       id: 3,
       title: "History Essay",
       description: "Write an essay about the Philippine Revolution.",
       dueDate: "2024-08-10",
+      answered: students.length - 3,
+      notAnswered: 3,
     },
   ];
 
@@ -44,18 +52,24 @@ const ActivitiesComponent = () => {
       title: "Math Quiz",
       description: "Complete the exercises on page 42.",
       dueDate: "2024-07-25",
+      answered: students.length - 2,
+      notAnswered: 2,
     },
     {
       id: 2,
       title: "Science Quiz",
       description: "Prepare a presentation on the solar system.",
       dueDate: "2024-08-01",
+      answered: students.length - 5,
+      notAnswered: 5,
     },
     {
       id: 3,
       title: "History Quiz",
       description: "Write an essay about the Philippine Revolution.",
       dueDate: "2024-08-10",
+      answered: students.length - 3,
+      notAnswered: 3,
     },
   ];
 
@@ -65,18 +79,24 @@ const ActivitiesComponent = () => {
       title: "First Quarter Examination",
       description: "Complete the exercises on page 42.",
       dueDate: "2024-07-25",
+      answered: students.length - 2,
+      notAnswered: 2,
     },
     {
       id: 2,
       title: "Second Quarter Examination",
       description: "Prepare a presentation on the solar system.",
       dueDate: "2024-08-01",
+      answered: students.length - 5,
+      notAnswered: 5,
     },
     {
       id: 3,
       title: "Third Quarter Examination",
       description: "Write an essay about the Philippine Revolution.",
       dueDate: "2024-08-10",
+      answered: students.length - 3,
+      notAnswered: 3,
     },
   ];
 

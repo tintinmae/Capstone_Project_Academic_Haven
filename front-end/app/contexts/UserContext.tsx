@@ -7,6 +7,8 @@ interface UserProps {
   firstName: string;
   lastName: string;
   email: string;
+  phoneNumber: string;
+  b_date: Date;
   profilePicture: string;
 }
 
@@ -28,6 +30,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     firstName: "Christine",
     lastName: "Ocaña",
     email: "ocanachristine43@gmail.com",
+    phoneNumber: "09123456789",
+    b_date: new Date(2004, 5, 22),
     profilePicture: "/images/default-profile.jpg",
   });
 

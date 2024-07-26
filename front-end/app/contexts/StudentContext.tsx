@@ -8,11 +8,15 @@ interface StudentProps {
   password?: string;
   profilePicture: string;
   grade?: number;
+  status?: string;
 }
 
 interface StudentContextProps {
   students: StudentProps[];
   addStudent: (student: StudentProps) => void;
+
+  updateStudent: (student: StudentProps) => void;
+  deleteStudent: (id: number) => void;
 }
 
 const StudentContext = createContext<StudentContextProps | undefined>(
@@ -34,6 +38,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student1.jpg",
       grade: 98.5,
+      status: "Active",
     },
     {
       id: 2,
@@ -42,6 +47,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student2.jpg",
       grade: 97.9,
+      status: "Active",
     },
     {
       id: 3,
@@ -50,6 +56,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student3.jpg",
       grade: 96,
+      status: "Active",
     },
     {
       id: 4,
@@ -58,6 +65,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student4.jpg",
       grade: 98,
+      status: "Active",
     },
     {
       id: 5,
@@ -66,6 +74,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student3.jpg",
       grade: 98,
+      status: "Active",
     },
     {
       id: 6,
@@ -74,6 +83,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student1.jpg",
       grade: 98,
+      status: "Active",
     },
     {
       id: 7,
@@ -82,6 +92,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student2.jpg",
       grade: 98,
+      status: "Active",
     },
     {
       id: 8,
@@ -90,6 +101,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student3.jpg",
       grade: 98,
+      status: "Active",
     },
     {
       id: 9,
@@ -98,6 +110,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student4.jpg",
       grade: 98,
+      status: "Active",
     },
     {
       id: 10,
@@ -106,6 +119,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student3.jpg",
       grade: 98,
+      status: "Active",
     },
     {
       id: 12,
@@ -114,6 +128,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student1.jpg",
       grade: 98,
+      status: "Active",
     },
     {
       id: 13,
@@ -122,6 +137,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student2.jpg",
       grade: 98,
+      status: "Active",
     },
     {
       id: 15,
@@ -130,6 +146,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student3.jpg",
       grade: 98,
+      status: "Active",
     },
     {
       id: 16,
@@ -138,6 +155,7 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student4.jpg",
       grade: 98,
+      status: "Active",
     },
     {
       id: 17,
@@ -146,15 +164,25 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
       password: "password123",
       profilePicture: "/images/student3.jpg",
       grade: 98,
+      status: "Active",
     },
   ]);
 
   const addStudent = (student: StudentProps) => {
     setStudents((prevStudents) => [...prevStudents, student]);
   };
+  const updateStudent = (student: StudentProps) => {
+    setStudents(students.map((s) => (s.id === student.id ? student : s)));
+  };
+
+  const deleteStudent = (id: number) => {
+    setStudents(students.filter((s) => s.id !== id));
+  };
 
   return (
-    <StudentContext.Provider value={{ students, addStudent }}>
+    <StudentContext.Provider
+      value={{ students, addStudent, updateStudent, deleteStudent }}
+    >
       {children}
     </StudentContext.Provider>
   );
