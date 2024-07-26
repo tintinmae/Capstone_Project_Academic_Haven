@@ -1,4 +1,3 @@
-// Header.tsx
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -6,16 +5,23 @@ import { usePathname, useRouter } from "next/navigation";
 import { FaRegBell, FaUser } from "react-icons/fa";
 import { useUserContext } from "@/app/contexts/UserContext";
 import Modal from "../modals/Modal";
+import { Sidebar } from "primereact/sidebar";
+import { GoGear } from "react-icons/go";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { user } = useUserContext();
 
   const handleRoute = () => {
     router.push("/login");
+  };
+
+  const handleProfile = () => {
+    router.push("/profile");
   };
 
   const handleIsOpen = () => {
@@ -37,6 +43,8 @@ const Header: React.FC = () => {
       return "Files";
     } else if (pathname.includes("/classes")) {
       return "Classes";
+    } else if (pathname.includes("/profile")) {
+      return "Profile Page";
     }
     return "Calendar";
   };
@@ -82,14 +90,20 @@ const Header: React.FC = () => {
           {isDropdownOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg">
               <ul>
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs ">
+                <li
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
+                  onClick={handleProfile}
+                >
                   Profile
                 </li>
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs ">
+                <li
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
+                  onClick={() => setVisible(true)}
+                >
                   Settings
                 </li>
                 <li
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs "
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-xs"
                   onClick={handleIsOpen}
                 >
                   Logout
@@ -119,6 +133,23 @@ const Header: React.FC = () => {
           </div>
         </div>
       </Modal>
+
+      <Sidebar
+        visible={visible}
+        onHide={() => setVisible(false)}
+        className="bg-slate-50 w-full md:w-[20%] md:w-20rem lg:w-30rem shadow-lg p-4"
+      >
+        <h2 className="flex items-center gap-4 p-4">
+          <GoGear />
+          Settings
+        </h2>
+        <hr className="mb-4" />
+        <ul>
+          <li>Change Password</li>
+          <li>Change Password</li>
+          <li>Change Password</li>
+        </ul>
+      </Sidebar>
     </div>
   );
 };
