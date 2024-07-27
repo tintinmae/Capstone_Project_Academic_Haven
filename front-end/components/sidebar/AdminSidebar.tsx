@@ -2,9 +2,18 @@
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import React from "react";
-import { FaClipboardList, FaUserFriends } from "react-icons/fa";
+import {
+  FaClipboardList,
+  FaRegClipboard,
+  FaRegUser,
+  FaUserFriends,
+} from "react-icons/fa";
 import { GoHome } from "react-icons/go";
-import { IoCalendarClearOutline, IoPeopleOutline } from "react-icons/io5";
+import {
+  IoCalendarClearOutline,
+  IoChevronUp,
+  IoPeopleOutline,
+} from "react-icons/io5";
 import { PiFolders } from "react-icons/pi";
 import {
   DropdownMenu,
@@ -14,6 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { IconDropdown } from "react-day-picker";
+import { LucideClipboard, LucideUser } from "lucide-react";
 
 const AdminSidebar = () => {
   const router = useRouter();
@@ -25,15 +35,15 @@ const AdminSidebar = () => {
   // };
 
   const dashboardClicked = () => {
-    router.push("/dashboard");
+    router.push("/admin_dashboard");
   };
 
   const classesClicked = () => {
     router.push("/events");
   };
-  const filesClicked = () => {
-    router.push("/users");
-  };
+  // const filesClicked = () => {
+  //   router.push("/users");
+  // };
 
   const calendarClicked = () => {
     router.push("/admin_calendar");
@@ -41,6 +51,10 @@ const AdminSidebar = () => {
 
   const handleStudentsRoute = () => {
     router.push("/users/students");
+  };
+
+  const handleTeachersRoute = () => {
+    router.push("/users/teachers");
   };
   const isActive = (path: string) => {
     return active === path
@@ -73,9 +87,9 @@ const AdminSidebar = () => {
                   className={`cursor-pointer flex items-center gap-4 py-2 px-4 hover:bg-white hover:text-blue-950 hover:rounded-full ${isActive(
                     "/users"
                   )}`}
-                  onClick={filesClicked}
+                  // onClick={filesClicked}
                 >
-                  <FaUserFriends /> Users <IconDropdown />
+                  <LucideUser size={16} /> Users <IconDropdown />
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
@@ -83,7 +97,7 @@ const AdminSidebar = () => {
                   <DropdownMenuItem onClick={handleStudentsRoute}>
                     <span>Students</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleTeachersRoute}>
                     <span>Teachers</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
@@ -98,7 +112,7 @@ const AdminSidebar = () => {
               )}`}
               onClick={classesClicked}
             >
-              <FaClipboardList /> Events
+              <FaRegClipboard /> Events
             </div>
             <div
               className={`cursor-pointer flex items-center gap-4 py-2 px-4 hover:bg-white hover:text-blue-950 hover:rounded-full ${isActive(
@@ -121,21 +135,38 @@ const AdminSidebar = () => {
         >
           <GoHome size={16} />
         </div>
-        <div
-          className={`cursor-pointer flex flex-col items-center ${isActive(
-            "/users"
-          )}`}
-          onClick={filesClicked}
-        >
-          <FaUserFriends size={16} />
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <div
+              className={`cursor-pointer flex flex-row gap-1 items-center ${isActive(
+                "/users"
+              )}`}
+              // onClick={filesClicked}
+            >
+              <LucideUser size={16} /> <IoChevronUp size={10} />
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-40 md:hidden">
+            <DropdownMenuGroup>
+              <DropdownMenuItem onClick={handleStudentsRoute}>
+                <span className="text-xs">Students</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={handleTeachersRoute}>
+                <span className="text-xs">Teachers</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span className="text-xs">Staff</span>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <div
           className={`cursor-pointer flex flex-col items-center ${isActive(
             "/events"
           )}`}
           onClick={classesClicked}
         >
-          <FaClipboardList size={16} />
+          <LucideClipboard size={14} />
         </div>
         <div
           className={`cursor-pointer flex flex-col items-center ${isActive(
@@ -143,7 +174,7 @@ const AdminSidebar = () => {
           )}`}
           onClick={calendarClicked}
         >
-          <IoCalendarClearOutline size={16} />
+          <IoCalendarClearOutline size={14} />
         </div>
       </div>
     </div>

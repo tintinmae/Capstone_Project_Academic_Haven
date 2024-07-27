@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-interface StudentProps {
+interface TeacherProps {
   id?: number;
   name: string;
   email?: string;
@@ -11,26 +11,26 @@ interface StudentProps {
   status?: string;
 }
 
-interface StudentContextProps {
-  students: StudentProps[];
-  addStudent: (student: StudentProps) => void;
+interface TeacherContextProps {
+  teachers: TeacherProps[];
+  addTeacher: (teacher: TeacherProps) => void;
 
-  updateStudent: (student: StudentProps) => void;
-  deleteStudent: (id: number) => void;
+  updateTeacher: (teacher: TeacherProps) => void;
+  deleteTeacher: (id: number) => void;
 }
 
-const StudentContext = createContext<StudentContextProps | undefined>(
+const TeacherContext = createContext<TeacherContextProps | undefined>(
   undefined
 );
 
-interface StudentProviderProps {
+interface TeacherProviderProps {
   children: ReactNode;
 }
 
-export const StudentProvider: React.FC<StudentProviderProps> = ({
+export const TeacherProvider: React.FC<TeacherProviderProps> = ({
   children,
 }) => {
-  const [students, setStudents] = useState<StudentProps[]>([
+  const [teachers, setTeachers] = useState<TeacherProps[]>([
     {
       id: 1,
       name: "Doe Not",
@@ -168,30 +168,30 @@ export const StudentProvider: React.FC<StudentProviderProps> = ({
     },
   ]);
 
-  const addStudent = (student: StudentProps) => {
-    setStudents((prevStudents) => [...prevStudents, student]);
+  const addTeacher = (teacher: TeacherProps) => {
+    setTeachers((prevTeachers) => [...prevTeachers, teacher]);
   };
-  const updateStudent = (student: StudentProps) => {
-    setStudents(students.map((s) => (s.id === student.id ? student : s)));
+  const updateTeacher = (teacher: TeacherProps) => {
+    setTeachers(teachers.map((s) => (s.id === teacher.id ? teacher : s)));
   };
 
-  const deleteStudent = (id: number) => {
-    setStudents(students.filter((s) => s.id !== id));
+  const deleteTeacher = (id: number) => {
+    setTeachers(teachers.filter((s) => s.id !== id));
   };
 
   return (
-    <StudentContext.Provider
-      value={{ students, addStudent, updateStudent, deleteStudent }}
+    <TeacherContext.Provider
+      value={{ teachers, addTeacher, updateTeacher, deleteTeacher }}
     >
       {children}
-    </StudentContext.Provider>
+    </TeacherContext.Provider>
   );
 };
 
-export const useStudentContext = (): StudentContextProps => {
-  const context = useContext(StudentContext);
+export const useTeacherContext = (): TeacherContextProps => {
+  const context = useContext(TeacherContext);
   if (!context) {
-    throw new Error("useStudentContext must be used within a StudentProvider");
+    throw new Error("useTeacherContext must be used within a TeacherProvider");
   }
   return context;
 };
