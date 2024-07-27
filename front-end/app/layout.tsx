@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { StudentProvider } from "./contexts/StudentContext";
 import { UserProvider } from "./contexts/UserContext";
+import { TeacherProvider } from "./contexts/TeacherContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,7 +24,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={poppins.className}>
         <UserProvider>
-          <StudentProvider>{children}</StudentProvider>
+          <StudentProvider>
+            <TeacherProvider>{children}</TeacherProvider>
+          </StudentProvider>
         </UserProvider>
       </body>
     </html>
