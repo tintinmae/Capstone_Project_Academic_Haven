@@ -4,6 +4,7 @@ import "./globals.css";
 import { StudentProvider } from "./contexts/StudentContext";
 import { UserProvider } from "./contexts/UserContext";
 import { TeacherProvider } from "./contexts/TeacherContext";
+import { AdminProvider } from "./contexts/AdminContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,9 +25,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={poppins.className}>
         <UserProvider>
-          <StudentProvider>
-            <TeacherProvider>{children}</TeacherProvider>
-          </StudentProvider>
+          <AdminProvider>
+            <StudentProvider>
+              <TeacherProvider>{children}</TeacherProvider>
+            </StudentProvider>
+          </AdminProvider>
         </UserProvider>
       </body>
     </html>
