@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface StudentProps {
-  id?: number;
+  id: number;
   name: string;
   email?: string;
   password?: string;

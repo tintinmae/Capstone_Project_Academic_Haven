@@ -2,19 +2,10 @@
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import React from "react";
-import {
-  FaClipboardList,
-  FaRegClipboard,
-  FaRegUser,
-  FaUserFriends,
-} from "react-icons/fa";
+import { FaRegClipboard } from "react-icons/fa";
 import { GoHome } from "react-icons/go";
-import {
-  IoCalendarClearOutline,
-  IoChevronUp,
-  IoPeopleOutline,
-} from "react-icons/io5";
-import { PiFolders } from "react-icons/pi";
+import { IoCalendarClearOutline, IoChevronUp } from "react-icons/io5";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,11 +19,6 @@ import { LucideClipboard, LucideUser } from "lucide-react";
 const AdminSidebar = () => {
   const router = useRouter();
   const active = usePathname();
-  // const [isOpen, setIsOpen] = useState(true);
-
-  // const toggleSidebar = () => {
-  //   setIsOpen(!isOpen);
-  // };
 
   const dashboardClicked = () => {
     router.push("/admin_dashboard");
@@ -41,9 +27,6 @@ const AdminSidebar = () => {
   const classesClicked = () => {
     router.push("/events");
   };
-  // const filesClicked = () => {
-  //   router.push("/users");
-  // };
 
   const calendarClicked = () => {
     router.push("/admin_calendar");
@@ -55,6 +38,9 @@ const AdminSidebar = () => {
 
   const handleTeachersRoute = () => {
     router.push("/users/teachers");
+  };
+  const handleAdminsRoute = () => {
+    router.push("/users/admins");
   };
   const isActive = (path: string) => {
     return active === path
@@ -100,8 +86,8 @@ const AdminSidebar = () => {
                   <DropdownMenuItem onClick={handleTeachersRoute}>
                     <span>Teachers</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>Staff</span>
+                  <DropdownMenuItem onClick={handleAdminsRoute}>
+                    <span>Admins</span>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
               </DropdownMenuContent>
@@ -141,7 +127,6 @@ const AdminSidebar = () => {
               className={`cursor-pointer flex flex-row gap-1 items-center ${isActive(
                 "/users"
               )}`}
-              // onClick={filesClicked}
             >
               <LucideUser size={16} /> <IoChevronUp size={10} />
             </div>
@@ -155,7 +140,7 @@ const AdminSidebar = () => {
                 <span className="text-xs">Teachers</span>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <span className="text-xs">Staff</span>
+                <span className="text-xs">Admins</span>
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>

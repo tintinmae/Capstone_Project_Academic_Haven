@@ -1,9 +1,6 @@
 "use client";
-
-import React, { useState } from "react";
-import { useStudentContext } from "@/app/contexts/StudentContext";
+import { useAdminContext } from "@/app/contexts/AdminContext";
 import AdminLayout from "@/components/layout/AdminLayout";
-import { FaUserAltSlash, FaUserEdit } from "react-icons/fa";
 import SearchBar from "@/components/searchbar/SearchBar";
 import {
   Pagination,
@@ -13,26 +10,27 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import Modal from "@/components/modals/Modal";
+import React, { useState } from "react";
+import { FaUserAltSlash, FaUserEdit } from "react-icons/fa";
 
-const StudentsPage: React.FC = () => {
-  const { students, deleteStudent, addStudent } = useStudentContext();
-  const [editingStudent, setEditingStudent] = useState<any>(null);
+const AdminPage: React.FC = () => {
+  const { admins, addAdmin, updateAdmin, deleteAdmin } = useAdminContext();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [adminToDelete, setAdminToDelete] = useState<number | null>(null);
+  const [editingAdmin, setEditingAdmin] = useState<any>(null);
   const [isAdding, setIsAdding] = useState(false);
-  const [newStudent, setNewStudent] = useState({
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [newAdmin, setNewAdmin] = useState({
     id: 0,
-    name: "",
+    username: "",
     email: "",
     password: "",
-    grade: "",
     profilePicture: "",
     status: "Active",
   });
   const [isEditing, setIsEditing] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [studentToDelete, setStudentToDelete] = useState<number | null>(null);
   const itemsPerPage = 7;
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,39 +38,39 @@ const StudentsPage: React.FC = () => {
     setCurrentPage(1);
   };
 
-  const filteredStudents = students.filter((student) =>
-    student.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredAdmin = admins.filter((admin) =>
+    admin.username.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredAdmin.length / itemsPerPage);
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  const paginatedStudents = filteredStudents.slice(
+  const paginatedAdmins = filteredAdmin.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  const handleEdit = (student: any) => {
-    setEditingStudent(student);
+  const handleEdit = (admin: any) => {
+    setEditingAdmin(admin);
     setIsEditing(true);
   };
 
   const handleOpenDeleteModal = (id: number) => {
-    setStudentToDelete(id);
+    setAdminToDelete(id);
     setIsDeleteModalOpen(true);
   };
 
   const handleCloseDeleteModal = () => {
-    setStudentToDelete(null);
+    setAdminToDelete(null);
     setIsDeleteModalOpen(false);
   };
 
   const handleDelete = () => {
-    if (studentToDelete !== null) {
-      deleteStudent(studentToDelete);
-      setStudentToDelete(null);
+    if (adminToDelete !== null) {
+      deleteAdmin(adminToDelete);
+      setAdminToDelete(null);
     }
     setIsDeleteModalOpen(false);
   };
@@ -82,12 +80,11 @@ const StudentsPage: React.FC = () => {
   };
 
   const handleCloseAdd = () => {
-    setNewStudent({
+    setNewAdmin({
       id: 0,
-      name: "",
+      username: "",
       email: "",
       password: "",
-      grade: "",
       profilePicture: "/images/default-profile.jpg",
       status: "Active",
     });
@@ -95,43 +92,58 @@ const StudentsPage: React.FC = () => {
   };
 
   const handleCloseEdit = () => {
-    setEditingStudent(null);
+    setEditingAdmin(null);
     setIsEditing(false);
   };
 
   const handleSubmitEdit = (e: React.FormEvent) => {
     e.preventDefault();
+
     handleCloseEdit();
   };
 
   const handleSubmitAdd = (e: React.FormEvent) => {
     e.preventDefault();
-    addStudent(newStudent);
+    addAdmin(newAdmin);
     handleCloseAdd();
   };
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files ? event.target.files[0] : null;
+    setSelectedFile(file);
+
+    // Display the selected file's preview
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewAdmin({ ...newAdmin, profilePicture: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <AdminLayout>
       <div className="container p-4">
-        <div className="flex flex-col md:flex-row w-full md:items-center md:gap-4">
+        <div className="w-full flex flex-col md:flex-row md:gap-4">
           <div>
             <button
               onClick={handleAdd}
               className="bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded mb-4"
             >
-              Add Student
+              Add Admin
             </button>
           </div>
           <div className="">
             <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
           </div>
         </div>
+
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white border-b border-gray-200 rounded-lg">
             <thead className="text-left">
               <tr>
                 <th className="py-2 px-4 border-b text-xs md:text-base">
-                  Name
+                  Username
                 </th>
                 <th className="py-2 px-4 border-b hidden md:table-cell">
                   Email
@@ -148,34 +160,36 @@ const StudentsPage: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {paginatedStudents.map((student) => (
-                <tr key={student.id}>
+              {paginatedAdmins.map((admin) => (
+                <tr key={admin.id}>
                   <td className="py-2 px-4 border-b flex items-center gap-4">
                     <img
-                      src={student.profilePicture}
-                      alt={student.name}
+                      src={admin.profilePicture}
+                      alt={admin.username}
                       className="w-[30px] h-[30px] rounded-full"
                     />
-                    <span className="text-xs md:text-base">{student.name}</span>
+                    <span className="text-xs md:text-base">
+                      {admin.username}
+                    </span>
                   </td>
                   <td className="py-2 px-4 border-b hidden md:table-cell">
-                    {student.email}
+                    {admin.email}
                   </td>
                   <td className="py-2 px-4 border-b hidden md:table-cell">
-                    {student.password}
+                    {admin.password}
                   </td>
                   <td className="py-2 px-4 border-b text-xs md:text-base">
-                    {student.status}
+                    {admin.status}
                   </td>
                   <td className="py-2 px-4 border-b text-xs md:text-base">
                     <button
-                      onClick={() => handleEdit(student)}
+                      onClick={() => handleEdit(admin)}
                       className="text-blue-500 hover:underline"
                     >
                       <FaUserEdit />
                     </button>
                     <button
-                      onClick={() => handleOpenDeleteModal(student.id)}
+                      onClick={() => handleOpenDeleteModal(admin.id)}
                       className="text-red-500 hover:underline ml-4"
                     >
                       <FaUserAltSlash />
@@ -186,7 +200,8 @@ const StudentsPage: React.FC = () => {
             </tbody>
           </table>
         </div>
-        <div className="mt-4 md:absolute md:right-2 md:mr-[7%]">
+
+        <div className="mt-4 md:absolute md:right-[7%]">
           <Pagination className="text-xs">
             <PaginationContent>
               <PaginationItem>
@@ -223,19 +238,21 @@ const StudentsPage: React.FC = () => {
           </Pagination>
         </div>
 
-        {isEditing && editingStudent && (
+        {isEditing && editingAdmin && (
           <div className="fixed top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-4 rounded-lg md:w-[20%]">
-              <h2 className="text-xl font-bold mb-4">Edit Student</h2>
+              <h2 className="text-xl font-bold mb-4">
+                Edit Admin <span>{editingAdmin.name}'s</span> Information
+              </h2>
               <form onSubmit={handleSubmitEdit}>
                 <div className="mb-4">
-                  <label className="block text-gray-700">Name</label>
+                  <label className="block text-gray-700">Username</label>
                   <input
                     type="text"
-                    value={editingStudent.name}
+                    value={editingAdmin.username}
                     onChange={(e) =>
-                      setEditingStudent({
-                        ...editingStudent,
+                      setEditingAdmin({
+                        ...editingAdmin,
                         name: e.target.value,
                       })
                     }
@@ -246,10 +263,10 @@ const StudentsPage: React.FC = () => {
                   <label className="block text-gray-700">Email</label>
                   <input
                     type="email"
-                    value={editingStudent.email}
+                    value={editingAdmin.email}
                     onChange={(e) =>
-                      setEditingStudent({
-                        ...editingStudent,
+                      setEditingAdmin({
+                        ...editingAdmin,
                         email: e.target.value,
                       })
                     }
@@ -260,10 +277,10 @@ const StudentsPage: React.FC = () => {
                   <label className="block text-gray-700">Status</label>
                   <input
                     type="text"
-                    value={editingStudent.status}
+                    value={editingAdmin.status}
                     onChange={(e) =>
-                      setEditingStudent({
-                        ...editingStudent,
+                      setEditingAdmin({
+                        ...editingAdmin,
                         status: e.target.value,
                       })
                     }
@@ -272,14 +289,14 @@ const StudentsPage: React.FC = () => {
                 </div>
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2"
                 >
                   Save
                 </button>
                 <button
                   type="button"
                   onClick={handleCloseEdit}
-                  className="bg-gray-500 text-white px-4 py-2 rounded"
+                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
                 >
                   Cancel
                 </button>
@@ -291,17 +308,17 @@ const StudentsPage: React.FC = () => {
         {isAdding && (
           <div className="fixed top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-4 rounded-lg md:w-[20%]">
-              <h2 className="text-xl font-bold mb-4">Add New Student</h2>
+              <h2 className="text-xl font-bold mb-4">Add New Admin</h2>
               <form onSubmit={handleSubmitAdd}>
                 <div className="mb-4">
-                  <label className="block text-gray-700">Name</label>
+                  <label className="block text-gray-700">Username</label>
                   <input
                     type="text"
-                    value={newStudent.name}
+                    value={newAdmin.username}
                     onChange={(e) =>
-                      setNewStudent({
-                        ...newStudent,
-                        name: e.target.value,
+                      setNewAdmin({
+                        ...newAdmin,
+                        username: e.target.value,
                       })
                     }
                     className="border border-gray-300 p-2 w-full rounded"
@@ -311,9 +328,9 @@ const StudentsPage: React.FC = () => {
                   <label className="block text-gray-700">Email</label>
                   <input
                     type="email"
-                    value={newStudent.email}
+                    value={newAdmin.email}
                     onChange={(e) =>
-                      setNewStudent({ ...newStudent, email: e.target.value })
+                      setNewAdmin({ ...newAdmin, email: e.target.value })
                     }
                     className="border border-gray-300 p-2 w-full rounded"
                   />
@@ -322,10 +339,10 @@ const StudentsPage: React.FC = () => {
                   <label className="block text-gray-700">Password</label>
                   <input
                     type="text"
-                    value={newStudent.password}
+                    value={newAdmin.password}
                     onChange={(e) =>
-                      setNewStudent({
-                        ...newStudent,
+                      setNewAdmin({
+                        ...newAdmin,
                         password: e.target.value,
                       })
                     }
@@ -354,7 +371,7 @@ const StudentsPage: React.FC = () => {
           <div className="fixed top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-4 rounded-lg">
               <h2 className="text-lg font-bold mb-4">Confirm Delete</h2>
-              <p>Are you sure you want to delete this student?</p>
+              <p>Are you sure you want to delete this admin?</p>
               <div className="mt-4 text-center">
                 <button
                   onClick={handleDelete}
@@ -377,4 +394,4 @@ const StudentsPage: React.FC = () => {
   );
 };
 
-export default StudentsPage;
+export default AdminPage;
