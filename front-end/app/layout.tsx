@@ -5,6 +5,7 @@ import { StudentProvider } from "./contexts/StudentContext";
 import { UserProvider } from "./contexts/UserContext";
 import { TeacherProvider } from "./contexts/TeacherContext";
 import { AdminProvider } from "./contexts/AdminContext";
+import { EventProvider } from "./contexts/EventsContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,7 +28,9 @@ export default function RootLayout({
         <UserProvider>
           <AdminProvider>
             <StudentProvider>
-              <TeacherProvider>{children}</TeacherProvider>
+              <TeacherProvider>
+                <EventProvider>{children}</EventProvider>
+              </TeacherProvider>
             </StudentProvider>
           </AdminProvider>
         </UserProvider>

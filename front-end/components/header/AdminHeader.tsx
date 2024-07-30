@@ -45,12 +45,12 @@ const AdminHeader: React.FC = () => {
       return "Teachers";
     } else if (pathname.includes("/users/admins")) {
       return "Admins";
-    } else if (pathname.includes("/events")) {
-      return "Events";
+    } else if (pathname.includes("/admin_classes")) {
+      return "Classes";
     } else if (pathname.includes("/admin_calendar")) {
-      return "Calendar";
+      return "Events";
     }
-    return "Calendar";
+    return pathname;
   };
 
   return (

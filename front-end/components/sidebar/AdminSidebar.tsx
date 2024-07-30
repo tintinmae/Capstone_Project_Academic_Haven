@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import React from "react";
-import { FaRegClipboard } from "react-icons/fa";
+import { FaRegClipboard, FaUserFriends } from "react-icons/fa";
 import { GoHome } from "react-icons/go";
 import { IoCalendarClearOutline, IoChevronUp } from "react-icons/io5";
 
@@ -25,7 +25,7 @@ const AdminSidebar = () => {
   };
 
   const classesClicked = () => {
-    router.push("/events");
+    router.push("/admin_classes");
   };
 
   const calendarClicked = () => {
@@ -71,7 +71,9 @@ const AdminSidebar = () => {
               <DropdownMenuTrigger asChild>
                 <div
                   className={`cursor-pointer flex items-center gap-4 py-2 px-4 hover:bg-white hover:text-blue-950 hover:rounded-full ${isActive(
-                    "/users"
+                    "/users/students"
+                  )} ${isActive("/users/teachers")} ${isActive(
+                    "/users/admins"
                   )}`}
                   // onClick={filesClicked}
                 >
@@ -94,11 +96,11 @@ const AdminSidebar = () => {
             </DropdownMenu>
             <div
               className={`cursor-pointer flex items-center gap-4 py-2 px-4 hover:bg-white hover:text-blue-950 hover:rounded-full ${isActive(
-                "/events"
+                "/admin_classes"
               )}`}
               onClick={classesClicked}
             >
-              <FaRegClipboard /> Events
+              <FaUserFriends /> Classes
             </div>
             <div
               className={`cursor-pointer flex items-center gap-4 py-2 px-4 hover:bg-white hover:text-blue-950 hover:rounded-full ${isActive(
@@ -106,7 +108,7 @@ const AdminSidebar = () => {
               )}`}
               onClick={calendarClicked}
             >
-              <IoCalendarClearOutline /> Calendar
+              <IoCalendarClearOutline /> Events
             </div>
           </div>
         </div>
@@ -125,8 +127,8 @@ const AdminSidebar = () => {
           <DropdownMenuTrigger asChild>
             <div
               className={`cursor-pointer flex flex-row gap-1 items-center ${isActive(
-                "/users"
-              )}`}
+                "/users/students"
+              )} ${isActive("/users/teachers")} ${isActive("/users/admins")}`}
             >
               <LucideUser size={16} /> <IoChevronUp size={10} />
             </div>
@@ -147,11 +149,11 @@ const AdminSidebar = () => {
         </DropdownMenu>
         <div
           className={`cursor-pointer flex flex-col items-center ${isActive(
-            "/events"
+            "/admin_classes"
           )}`}
           onClick={classesClicked}
         >
-          <LucideClipboard size={14} />
+          <FaUserFriends size={14} />
         </div>
         <div
           className={`cursor-pointer flex flex-col items-center ${isActive(
