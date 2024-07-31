@@ -34,6 +34,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.3.12",
+    "globalize": "^1.7.0",
     "lucide-react": "^0.402.0",
     "next": "^14.2.5",
     "primereact": "^10.7.0",

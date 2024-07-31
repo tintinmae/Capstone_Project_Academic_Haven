@@ -98,14 +98,16 @@ const Login: React.FC = () => {
                 error={errors.password}
               />
             </div>
-            <Button title="Submit" />
-            <a
-              href="#"
-              className="text-xs text-blue-800 mb-4 hover:text-blue-700"
-              onClick={handleForgotPassword}
-            >
-              Forgotten Password?
-            </a>
+            <div className="flex items-center justify-between">
+              <Button title="Submit" />
+              <a
+                href="#"
+                className="text-xs text-blue-800 mb-4 hover:text-blue-700"
+                onClick={handleForgotPassword}
+              >
+                Forgotten Password?
+              </a>
+            </div>
           </form>
 
           <div className="mb-8 lg:w-full">

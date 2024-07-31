@@ -14,6 +14,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import Modal from "@/components/modals/Modal";
+import Buttons from "@/components/Buttons/Button";
 
 const StudentsPage: React.FC = () => {
   const { students, deleteStudent, addStudent } = useStudentContext();
@@ -113,16 +114,11 @@ const StudentsPage: React.FC = () => {
   return (
     <AdminLayout>
       <div className="container p-4">
-        <div className="flex flex-col md:flex-row w-full md:items-center md:gap-4">
+        <div className="flex flex-col md:flex-row w-full md:items-center gap-4">
           <div>
-            <button
-              onClick={handleAdd}
-              className="bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded mb-4"
-            >
-              Add Student
-            </button>
+            <Buttons title="Add Student" onClick={handleAdd} />
           </div>
-          <div className="">
+          <div className="md:mt-4">
             <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
           </div>
         </div>
