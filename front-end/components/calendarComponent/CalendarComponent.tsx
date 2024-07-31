@@ -74,15 +74,7 @@ const CalendarComponent: React.FC = () => {
         endAccessor={(event: EventProps) => new Date(event.dateTime)}
         className="custom-calendar"
         components={{
-          toolbar: (props) => (
-            <CustomToolbar
-              {...props}
-              label={props.label}
-              onView={props.onView}
-              views={props.views}
-              view={props.view}
-            />
-          ),
+          toolbar: CustomToolbar,
           event: CustomEvent,
         }}
         style={{ height: calendarHeight }}

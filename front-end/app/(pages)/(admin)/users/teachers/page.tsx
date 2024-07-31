@@ -14,6 +14,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useTeacherContext } from "@/app/contexts/TeacherContext";
+import Buttons from "@/components/Buttons/Button";
 
 const TeachersPage: React.FC = () => {
   const { teachers, deleteTeacher, addTeacher } = useTeacherContext();
@@ -116,14 +117,11 @@ const TeachersPage: React.FC = () => {
       <div className="container p-4">
         <div className="w-full flex flex-col md:flex-row md:gap-4">
           <div>
-            <button
-              onClick={handleAdd}
-              className="bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded mb-4"
-            >
-              Add Teacher
-            </button>
+            <div>
+              <Buttons title="Add Teacher" onClick={handleAdd} />
+            </div>
           </div>
-          <div className="">
+          <div className="md:mt-1">
             <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
           </div>
         </div>

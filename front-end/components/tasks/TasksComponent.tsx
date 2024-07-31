@@ -177,12 +177,7 @@ const TasksComponent: React.FC = () => {
         </Popover>
 
         <div>
-          <button
-            className="bg-blue-950 text-white text-xs p-2 w-32 rounded-md hover:bg-blue-950/50"
-            onClick={handleOpenModal}
-          >
-            Add Event
-          </button>
+          <Buttons title="Add Event" onClick={handleOpenModal} />
         </div>
       </div>
 
@@ -279,9 +274,9 @@ const TasksComponent: React.FC = () => {
 
       <Modal show={isOpen} onClose={handleClose}>
         <div className="flex flex-col gap-6 ">
-          <div onClick={handleClose} className="self-end hover:text-gray-300">
+          {/* <div onClick={handleClose} className="self-end hover:text-gray-300">
             <FaTimes />
-          </div>
+          </div> */}
           <h1 className="self-center text-xl">
             {editMode ? "Edit Task" : "Add Task"}
           </h1>

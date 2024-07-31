@@ -1,4 +1,5 @@
 import React from "react";
+import "/styles/button.css";
 
 interface ButtonProps {
   title: string;
@@ -8,10 +9,7 @@ interface ButtonProps {
 
 const Buttons: React.FC<ButtonProps> = ({ title, icon, onClick }) => {
   return (
-    <button
-      onClick={onClick}
-      className="bg-[#152238] text-white hover:bg-[#152238]/50 p-2 md:p-4 text-xs text-center rounded-md w-full mb-4 flex items-center justify-center"
-    >
+    <button onClick={onClick} className="custom-btn btn-2">
       {icon && <span className="mr-2">{icon}</span>}
       {title}
     </button>
