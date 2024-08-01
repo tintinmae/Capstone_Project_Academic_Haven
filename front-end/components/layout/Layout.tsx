@@ -24,7 +24,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           {children}
         </div>
         {isNotCalendarPage && (
-          <div className="hidden md:block shadow-lg p-4 w-80">
+          <div className="hidden 2xl:block shadow-lg p-4 w-80">
             <Widgets />
           </div>
         )}

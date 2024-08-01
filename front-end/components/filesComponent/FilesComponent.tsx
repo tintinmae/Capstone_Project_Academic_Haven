@@ -140,15 +140,15 @@ const FilesComponent: React.FC = () => {
 
   return (
     <div className="md:ml-10 grid grid-rows-2">
-      <div className="fixed top-14 w-full px-4 py-6 h-20 z-10">
+      <div className="fixed top-14 w-full px-4 py-6 z-10">
         <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
       </div>
-      <div className="bg-white rounded-lg p-4 w-full mt-20 lg:fixed lg:w-3/5 lg:ml-14">
+      <div className="bg-white text-xs rounded-lg w-[86%] mt-20 2xl:ml-14">
         <ul>
           {paginatedFiles.map((file, index) => (
             <li
               key={index}
-              className="relative flex items-center gap-4 p-2 border-b border-dashed group hover:bg-gray-100"
+              className="relative flex items-center gap-4 border-b border-dashed group hover:bg-gray-100"
             >
               <button
                 onClick={() => handleOpenModal(index)}
@@ -159,24 +159,26 @@ const FilesComponent: React.FC = () => {
               {getFileIcon(file.type)}
               <div className="flex flex-row items-center justify-between w-full py-4">
                 <div className="flex flex-col">
-                  <span className="font-medium">{file.name}</span>
+                  <span className="font-medium text-xs 2xl:text-base">
+                    {file.name}
+                  </span>
                   <span className="text-xs text-gray-600">{file.size}</span>
                 </div>
-                <div className="flex flex-col text-right">
+                {/* <div className="flex flex-col text-right">
                   <span className="text-xs text-gray-500">
                     Uploaded by: {file.uploadedBy}
                   </span>
                   <span className="text-xs text-gray-500">
                     Date: {format(file.date, "PP")}
                   </span>
-                </div>
+                </div> */}
               </div>
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="hidden lg:block mt-4 fixed bottom-10">
+      <div className=" mt-4 fixed bottom-16">
         <Pagination>
           <PaginationContent>
             <PaginationItem>

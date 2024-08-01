@@ -151,9 +151,9 @@ const TasksComponent: React.FC = () => {
   }));
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex md:justify-end items-center gap-4">
-        <Popover>
+    <div className="flex flex-col">
+      <div className="flex flex-col md:flex-row md:justify-end gap-4">
+        {/* <Popover>
           <PopoverTrigger asChild>
             <Button
               variant={"outline"}
@@ -174,9 +174,9 @@ const TasksComponent: React.FC = () => {
               initialFocus
             />
           </PopoverContent>
-        </Popover>
+        </Popover> */}
 
-        <div>
+        <div className="self-end">
           <Buttons title="Add Event" onClick={handleOpenModal} />
         </div>
       </div>

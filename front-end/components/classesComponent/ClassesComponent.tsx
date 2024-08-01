@@ -57,11 +57,11 @@ const ClassesComponent: React.FC = () => {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="self-end mr-4 md:mr-24">
+      <div className="self-end mr-4 md:mr-10 2xl:mr-24">
         <Buttons title="Create Class" onClick={handleOpenModal} />
       </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-6 md:gap-24 md:grid-cols-3">
+      <div className="mt-6 grid grid-cols-1 gap-6 md:gap-24 md:grid-cols-2 2xl:grid-cols-3">
         <div>
           <ClassCard
             grade={7}

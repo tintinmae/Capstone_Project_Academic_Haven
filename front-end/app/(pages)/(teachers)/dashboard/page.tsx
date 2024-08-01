@@ -5,7 +5,7 @@ import DashboardComponent from "./DashboardComponent";
 const Dashboard = () => {
   return (
     <Layout>
-      <div className="container">
+      <div className="md:container">
         <DashboardComponent />
       </div>
     </Layout>

@@ -65,7 +65,7 @@ const Students: React.FC = () => {
 
   return (
     <>
-      <div className="hidden md:block cursor-default">
+      <div className="hidden 2xl:block 2xl:mr-2 cursor-default">
         <div className="flex flex-row items-center justify-between">
           <h3 className="text-xl font-bold mt-4">Students</h3>
           <p
@@ -102,16 +102,19 @@ const Students: React.FC = () => {
           </ul>
         </ScrollArea>
       </div>
-      <div className="md:hidden">
+      <div className="2xl:hidden">
         <Drawer open={isDrawerOpen} onClose={handleDrawerOpen}>
-          <DrawerTrigger onClick={handleDrawerOpen}>
+          <DrawerTrigger
+            onClick={handleDrawerOpen}
+            className="bg-slate-100 p-2 rounded shadow-lg"
+          >
             <FaBars />
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
               <DrawerTitle>Students</DrawerTitle>
               <DrawerDescription>
-                <ScrollArea className="h-[150px] md:h-[82vh] w-[350px] rounded-md border p-4 mt-2">
+                <ScrollArea className="h-[150px] md:h-[82vh] w-full rounded-md border p-4 mt-2">
                   <p
                     className="text-end text-xs underline text-blue-600 hover:text-gray-300"
                     onClick={handleRoute}
@@ -188,7 +191,9 @@ const Students: React.FC = () => {
             >
               Add Another Email
             </button>
-            <Buttons title="Invite" onClick={handleSubmit} />
+            <div className="self-center">
+              <Buttons title="Invite" onClick={handleSubmit} />
+            </div>
           </div>
         </div>
       </Modal>
