@@ -15,9 +15,12 @@ import {
 } from "@/components/ui/pagination";
 import { useTeacherContext } from "@/app/contexts/TeacherContext";
 import Buttons from "@/components/Buttons/Button";
+import { useToast } from "@/components/ui/use-toast";
 
 const TeachersPage: React.FC = () => {
-  const { teachers, deleteTeacher, addTeacher } = useTeacherContext();
+  const { teachers, deleteTeacher, addTeacher, updateTeacher } =
+    useTeacherContext();
+  const { toast } = useToast();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [teacherToDelete, setTeacherToDelete] = useState<number | null>(null);
   const [editingTeacher, setEditingTeacher] = useState<any>(null);
@@ -73,6 +76,11 @@ const TeachersPage: React.FC = () => {
   const handleDelete = () => {
     if (teacherToDelete !== null) {
       deleteTeacher(teacherToDelete);
+      toast({
+        title: "Deleted",
+        description: "User Deleted Successfully.",
+        variant: "delete",
+      });
       setTeacherToDelete(null);
     }
     setIsDeleteModalOpen(false);
@@ -102,13 +110,25 @@ const TeachersPage: React.FC = () => {
 
   const handleSubmitEdit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    if (editingTeacher) {
+      updateTeacher(editingTeacher);
+      toast({
+        title: "Update",
+        description: `${editingTeacher.name}'s data updated successfully.`,
+        variant: "update",
+      });
+    }
     handleCloseEdit();
   };
 
   const handleSubmitAdd = (e: React.FormEvent) => {
     e.preventDefault();
     addTeacher(newTeacher);
+    toast({
+      title: "Added",
+      description: "New teacher added successfully.",
+      variant: "success",
+    });
     handleCloseAdd();
   };
 
@@ -129,9 +149,7 @@ const TeachersPage: React.FC = () => {
           <table className="min-w-full bg-white border-b border-gray-200 rounded-lg">
             <thead className="text-left">
               <tr>
-                <th className="py-2 px-4 border-b text-xs md:text-base">
-                  Name
-                </th>
+                <th className="py-2 px-4 border-b text-xs md:text-sm">Name</th>
                 <th className="py-2 px-4 border-b hidden md:table-cell">
                   Email
                 </th>
@@ -148,14 +166,14 @@ const TeachersPage: React.FC = () => {
             </thead>
             <tbody>
               {paginatedTeachers.map((teacher) => (
-                <tr key={teacher.id}>
+                <tr key={teacher.id} className="even:bg-white odd:bg-slate-100">
                   <td className="py-2 px-4 border-b flex items-center gap-4">
                     <img
                       src={teacher.profilePicture}
                       alt={teacher.name}
                       className="w-[30px] h-[30px] rounded-full"
                     />
-                    <span className="text-xs md:text-base">{teacher.name}</span>
+                    <span className="text-xs md:text-sm">{teacher.name}</span>
                   </td>
                   <td className="py-2 px-4 border-b hidden md:table-cell">
                     {teacher.email}
