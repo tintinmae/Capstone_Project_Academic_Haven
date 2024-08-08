@@ -1,4 +1,5 @@
 "use client";
+
 import { useAdminContext } from "@/app/contexts/AdminContext";
 import Buttons from "@/components/Buttons/Button";
 import AdminLayout from "@/components/layout/AdminLayout";
@@ -11,22 +12,34 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import React, { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import { FaUserAltSlash, FaUserEdit } from "react-icons/fa";
+
+interface Admin {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  profilePicture: string;
+  status: string;
+}
 
 const AdminPage: React.FC = () => {
   const { admins, addAdmin, updateAdmin, deleteAdmin } = useAdminContext();
+  const { toast } = useToast();
+
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [adminToDelete, setAdminToDelete] = useState<number | null>(null);
-  const [editingAdmin, setEditingAdmin] = useState<any>(null);
+  const [editingAdmin, setEditingAdmin] = useState<Admin | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [newAdmin, setNewAdmin] = useState({
+  const [newAdmin, setNewAdmin] = useState<Admin>({
     id: 0,
     username: "",
     email: "",
     password: "",
-    profilePicture: "",
+    profilePicture: "/images/default-profile.jpg",
     status: "Active",
   });
   const [isEditing, setIsEditing] = useState(false);
@@ -34,7 +47,7 @@ const AdminPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const itemsPerPage = 7;
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
     setCurrentPage(1);
   };
@@ -53,7 +66,7 @@ const AdminPage: React.FC = () => {
     currentPage * itemsPerPage
   );
 
-  const handleEdit = (admin: any) => {
+  const handleEdit = (admin: Admin) => {
     setEditingAdmin(admin);
     setIsEditing(true);
   };
@@ -71,6 +84,11 @@ const AdminPage: React.FC = () => {
   const handleDelete = () => {
     if (adminToDelete !== null) {
       deleteAdmin(adminToDelete);
+      toast({
+        title: "Deleted",
+        description: "User deleted successfully.",
+        variant: "delete",
+      });
       setAdminToDelete(null);
     }
     setIsDeleteModalOpen(false);
@@ -97,23 +115,34 @@ const AdminPage: React.FC = () => {
     setIsEditing(false);
   };
 
-  const handleSubmitEdit = (e: React.FormEvent) => {
+  const handleSubmitEdit = (e: FormEvent) => {
     e.preventDefault();
-
-    handleCloseEdit();
+    if (editingAdmin) {
+      updateAdmin(editingAdmin);
+      toast({
+        title: "Updated",
+        description: `${editingAdmin.username}'s data updated successfully.`,
+        variant: "update",
+      });
+      handleCloseEdit();
+    }
   };
 
-  const handleSubmitAdd = (e: React.FormEvent) => {
+  const handleSubmitAdd = (e: FormEvent) => {
     e.preventDefault();
     addAdmin(newAdmin);
+    toast({
+      title: "Added",
+      description: "New admin added successfully.",
+      variant: "success",
+    });
     handleCloseAdd();
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
     setSelectedFile(file);
 
-    // Display the selected file's preview
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -122,14 +151,15 @@ const AdminPage: React.FC = () => {
       reader.readAsDataURL(file);
     }
   };
+
   return (
     <AdminLayout>
       <div className="container p-4">
-        <div className="flex flex-col md:flex-row w-full md:items-center gap-4">
+        <div className="flex flex-col md:flex-row w-full md:gap-4">
           <div>
             <Buttons title="Add Admin" onClick={handleAdd} />
           </div>
-          <div className="md:mt-4">
+          <div className="md:mt-1">
             <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
           </div>
         </div>
@@ -138,7 +168,7 @@ const AdminPage: React.FC = () => {
           <table className="min-w-full bg-white border-b border-gray-200 rounded-lg">
             <thead className="text-left">
               <tr>
-                <th className="py-2 px-4 border-b text-xs md:text-base">
+                <th className="py-2 px-4 border-b text-xs md:text-sm">
                   Username
                 </th>
                 <th className="py-2 px-4 border-b hidden md:table-cell">
@@ -157,16 +187,14 @@ const AdminPage: React.FC = () => {
             </thead>
             <tbody>
               {paginatedAdmins.map((admin) => (
-                <tr key={admin.id}>
+                <tr key={admin.id} className="even:bg-white odd:bg-slate-100">
                   <td className="py-2 px-4 border-b flex items-center gap-4">
                     <img
                       src={admin.profilePicture}
                       alt={admin.username}
                       className="w-[30px] h-[30px] rounded-full"
                     />
-                    <span className="text-xs md:text-base">
-                      {admin.username}
-                    </span>
+                    <span className="text-xs md:text-sm">{admin.username}</span>
                   </td>
                   <td className="py-2 px-4 border-b hidden md:table-cell">
                     {admin.email}
@@ -181,12 +209,14 @@ const AdminPage: React.FC = () => {
                     <button
                       onClick={() => handleEdit(admin)}
                       className="text-blue-500 hover:underline"
+                      aria-label={`Edit ${admin.username}`}
                     >
                       <FaUserEdit />
                     </button>
                     <button
                       onClick={() => handleOpenDeleteModal(admin.id)}
                       className="text-red-500 hover:underline ml-4"
+                      aria-label={`Delete ${admin.username}`}
                     >
                       <FaUserAltSlash />
                     </button>
@@ -238,7 +268,7 @@ const AdminPage: React.FC = () => {
           <div className="fixed top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-4 rounded-lg md:w-[20%]">
               <h2 className="text-xl font-bold mb-4">
-                Edit Admin <span>{editingAdmin.name}'s</span> Information
+                Edit Admin's Information
               </h2>
               <form onSubmit={handleSubmitEdit}>
                 <div className="mb-4">
@@ -249,7 +279,7 @@ const AdminPage: React.FC = () => {
                     onChange={(e) =>
                       setEditingAdmin({
                         ...editingAdmin,
-                        name: e.target.value,
+                        username: e.target.value,
                       })
                     }
                     className="border border-gray-300 p-2 w-full rounded"
@@ -334,7 +364,7 @@ const AdminPage: React.FC = () => {
                 <div className="mb-4">
                   <label className="block text-gray-700">Password</label>
                   <input
-                    type="text"
+                    type="password"
                     value={newAdmin.password}
                     onChange={(e) =>
                       setNewAdmin({
@@ -342,6 +372,14 @@ const AdminPage: React.FC = () => {
                         password: e.target.value,
                       })
                     }
+                    className="border border-gray-300 p-2 w-full rounded"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Profile Picture</label>
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
                     className="border border-gray-300 p-2 w-full rounded"
                   />
                 </div>

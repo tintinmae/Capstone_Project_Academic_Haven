@@ -6,6 +6,11 @@ import { UserProvider } from "./contexts/UserContext";
 import { TeacherProvider } from "./contexts/TeacherContext";
 import { AdminProvider } from "./contexts/AdminContext";
 import { EventProvider } from "./contexts/EventsContext";
+import { Toast } from "primereact/toast";
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,7 +34,9 @@ export default function RootLayout({
           <AdminProvider>
             <StudentProvider>
               <TeacherProvider>
-                <EventProvider>{children}</EventProvider>
+                <EventProvider>
+                  {children} <Toaster />
+                </EventProvider>
               </TeacherProvider>
             </StudentProvider>
           </AdminProvider>
