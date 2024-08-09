@@ -4,8 +4,8 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 interface StudentProps {
   id: number;
   name: string;
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
   profilePicture: string;
   grade?: string;
   status?: string;
