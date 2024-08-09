@@ -97,7 +97,7 @@ const AdminSidebar = () => {
             <div
               className={`cursor-pointer flex items-center gap-4 py-2 px-4 hover:bg-white hover:text-blue-950 hover:rounded-full ${isActive(
                 "/admin_classes"
-              )}`}
+              )} ${isActive("/admin_classes/teachersAndStudents")}`}
               onClick={classesClicked}
             >
               <FaUserFriends /> Classes
@@ -150,7 +150,7 @@ const AdminSidebar = () => {
         <div
           className={`cursor-pointer flex flex-col items-center ${isActive(
             "/admin_classes"
-          )}`}
+          )} ${isActive("/admin_classes/teachersAndStudents")}`}
           onClick={classesClicked}
         >
           <FaUserFriends size={14} />

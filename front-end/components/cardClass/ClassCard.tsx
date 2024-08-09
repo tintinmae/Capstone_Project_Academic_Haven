@@ -1,8 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { FaArrowRight, FaGreaterThan } from "react-icons/fa";
-import { ArrowBigRight, ArrowDownRight, ArrowRight } from "lucide-react";
-import { GoArrowRight } from "react-icons/go";
 import { useRouter } from "next/navigation";
 
 interface StudentProps {
@@ -19,14 +16,6 @@ interface ClassCardProps {
   students: StudentProps[];
 }
 
-// const getRandomColor = () => {
-//   const letters = "0123456789ABCDEF";
-//   let color = "#";
-//   for (let i = 0; i < 6; i++) {
-//     color += letters[Math.floor(Math.random() * 8)];
-//   }
-//   return color;
-// };
 const ClassCard: React.FC<ClassCardProps> = ({
   grade,
   section,
@@ -55,8 +44,7 @@ const ClassCard: React.FC<ClassCardProps> = ({
           : grade === 10
           ? "bg-blue-950"
           : "bg-muted-foreground"
-      } w-[300px] rounded-xl shadow-lg`}
-      // style={{ backgroundColor: getRandomColor() }}
+      } w-[300px] rounded-xl shadow-lg cursor-pointer transform transition-transform duration-200 hover:scale-105 hover:shadow-2xl`}
     >
       <div className="p-4 text-white">
         <h2>
